@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kurumi.mapper.BasicEncodingMapper" >
+  <resultMap id="basicEncoding" type="com.kurumi.pojo.BasicEncoding">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="en_name" property="enName" jdbcType="VARCHAR" />
+    <result column="index_code" property="indexCode" jdbcType="VARCHAR" />
+    <result column="sort_code" property="sortCode" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+
+   <select id="getBasicEncoding" resultType="map" parameterType="com.kurumi.query.BasicEncodingQuery">
+  	select * from ${tableName} where 1=1
+  	<if test="code!=null">
+  	 	and code=#{code}
+  	</if>
+  	<if test="name!=null">
+  	 	and name=#{name}
+  	</if>
+  	<if test="indexCode!=null">
+  	 	and index_code=#{indexCode}
+  	</if>
+  	 order by id desc
+  	 <if test="currentStartNum != null and pageSize != null" >
+     	limit #{currentStartNum},#{pageSize}
+     </if>
+  </select>
+  
+   <select id="getBasicEncodingCount" parameterType="com.kurumi.query.BasicEncodingQuery" resultType="java.lang.Integer">
+  	select count(id) from ${tableName} where 1=1
+  	<if test="code!=null">
+  	 	and code=#{code}
+  	</if>
+  	<if test="name!=null">
+  	 	and name=#{name}
+  	</if>
+  	<if test="indexCode!=null">
+  	 	and index_code=#{indexCode}
+  	</if>
+  </select>
+  
+   
+  <insert id="insertBasicEncoding" parameterType="com.kurumi.pojo.BasicEncoding" 
+  useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+  	insert into ${tableName}
+  	  <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+       <if test="name != null" >
+        name,
+      </if>
+      
+      <if test="enName != null" >
+        en_name,
+      </if>
+     <if test="indexCode != null" >
+        index_code,
+      </if>
+      <if test="sortCode != null" >
+        sort_code,
+      </if>
+     
+      <if test="comment != null" >
+        comment,
+      </if>
+       <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="enName != null" >
+        #{enName,jdbcType=VARCHAR},
+      </if>
+       <if test="indexCode != null" >
+        #{indexCode,jdbcType=VARCHAR},
+      </if>
+       <if test="sortCode != null" >
+        #{sortCode,jdbcType=VARCHAR},
+      </if>
+       <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+       <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="validateRepeatByIdAndCode" resultType="java.lang.Integer">
+  	select count(id) from ${tableName} where id!=#{id} and code=#{code}
+  </select>
+  
+  <update id="updateBasicEncoding" parameterType="com.kurumi.pojo.BasicEncoding" >
+    update ${tableName}
+    <set >
+        code = #{code,jdbcType=VARCHAR},
+        name = #{name,jdbcType=VARCHAR},
+        en_name = #{enName,jdbcType=VARCHAR},
+        index_code = #{indexCode,jdbcType=VARCHAR},
+      	sort_code = #{sortCode,jdbcType=VARCHAR},
+        comment=#{comment,jdbcType=VARCHAR}
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateBasicEncodingById" parameterType="com.kurumi.pojo.BasicEncoding" >
+    update ${tableName}
+    <set >
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="indexCode != null" >
+        index_code = #{indexCode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="enName != null" >
+        en_name = #{enName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+       <if test="comment != null" >
+        comment=#{comment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+<select id="getBasicEncodingById" resultMap="basicEncoding" parameterType="java.util.Map">
+  	select * from ${tableName} where id=#{id}
+  </select>
+ <delete id="deleteBasicEncodingById" parameterType="java.util.Map">
+      delete from ${tableName} where id=#{id}
+  </delete>
+  
+   <select id="validateIdTypeIsUse" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select count(*) from citizens_info where 1=1
+  	<if test="_parameter !=null and _parameter!='' ">
+  	 	and id_type=#{id}
+  	</if>
+  </select>
+  
+   <select id="getBasicDataList" resultType="map" parameterType="java.lang.String">
+  	select * from ${_parameter}
+  </select>
+  
+  <select id="validateSexIsUse" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select count(*) from citizens_info where 1=1
+  	<if test="_parameter !=null and _parameter !='' ">
+  	 	and sex_id=#{id}
+  	</if>
+  </select>
+  
+   <select id="validateTreatmentIsUse" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	select count(*) from first_level_medical where 1=1
+  	<if test="signId !=null and signId !='' ">
+  	 	and treatment_sign_id=#{signId}
+  	</if>
+  	<if test="typeId !=null and typeId !='' ">
+  	 	and treatment_type_id=#{typeId}
+  	</if>
+  </select>
+  
+  <select id="validateHospitalTypeIsUse" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	select count(*) from hospitalization_note where 1=1
+  	<if test="inId !=null and inId !='' ">
+  	 	and in_hospital_type_id=#{inId}
+  	</if>
+  	<if test="outId !=null and outId !='' ">
+  	 	and out_hospital_type_id=#{outId}
+  	</if>
+  </select>
+  
+ <select id="getFirstLevelMedicalByHospitalId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select count(*) from first_level_medical where 1=1
+  	<if test="_parameter !=null and _parameter !='' ">
+  	 	and hospital_id=#{id}
+  	</if>
+  </select>
+
+ <select id="getPageTypeByHospitalId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select count(*) from mr_page_type where 1=1
+  	<if test="_parameter !=null and _parameter !='' ">
+  	 	and hospital_id=#{id}
+  	</if>
+ </select>
+  <select id="getPrintTypeByHospitalId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select count(*) from mr_printer_type where 1=1
+  	<if test="_parameter !=null and _parameter !='' ">
+  	 	and hospital_id=#{id}
+  	</if>
+ </select>
+ 
+ 
+  <select id="validateResourceTypeIsUse" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select count(*) from medical_resource where 1=1
+  	<if test="_parameter !=null and _parameter !='' ">
+  	 	and medical_resource_type_id=#{id}
+  	</if>
+ </select>
+ 
+ 
+ <select id="validateStdAttributeCodeIsUse" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select count(*) from std_disease where 1=1
+  	<if test="_parameter !=null and _parameter !='' ">
+  	 	and attributes_id=#{id}
+  	</if>
+  </select>
+
+ <select id="getStdOperationByAttributeCodeId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select count(*) from std_operation where 1=1
+  	<if test="_parameter !=null and _parameter !='' ">
+  	 	and attributes_id=#{id}
+  	</if>
+  </select>
+
+ <select id="validateIncisionAndOpsLevelAndOpsMarkIsUse" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	select count(*) from std_operation where 1=1
+  	<if test="incisionLevelId !=null and incisionLevelId !='' ">
+  	 	and std_incision_level_id=#{incisionLevelId}
+  	</if>
+   <if test="opsLevelId !=null and opsLevelId !='' ">
+  	 	and std_ops_level_id=#{opsLevelId}
+  	</if>
+   <if test="opsMarkId !=null and opsMarkId !='' ">
+  	 	and std_ops_peration_mark_id=#{opsMarkId}
+  	</if>
+  </select>
+  
+   <select id="validateOpsMarkIsUseByOpeBeijingICD9" parameterType="java.util.Map" resultType="java.lang.Integer">
+  	select count(*) from std_operation_beijing_icd9 where 1=1
+   <if test="opsMarkId !=null and opsMarkId !='' ">
+  	 	and std_ops_operation_mark_id=#{opsMarkId}
+  	</if>
+  </select>
+  
+</mapper>

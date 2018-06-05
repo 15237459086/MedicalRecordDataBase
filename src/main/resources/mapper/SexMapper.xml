@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kurumi.mapper.SexMapper" >
+
+ <resultMap id="sex" type="com.kurumi.pojo.Sex" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="no" property="no" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  	<!-- 获取所有性别 -->
+   <select id="getSexes" resultType="map">
+  	select id, no, name, status from sex
+  </select>
+  
+   <select id="selectByPrimaryKey" resultType="sex" parameterType="java.lang.Integer">
+  	select id, no, name, status from sex where id=#{id}
+  </select>
+  <insert id="insert" parameterType="sex" >
+  	insert into sex 
+  	  <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="no != null" >
+        no,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="no != null" >
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="sex">
+    update sex  
+    <set >
+      <if test="no != null" >
+        no = #{no},
+      </if>
+      <if test="name != null" >
+        name = #{name},
+      </if>
+       <if test="status != null" >
+        status = #{status},
+      </if>
+     </set> 
+  where id = #{id}
+  </update>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+      delete from sex where id=#{id}
+  </delete>
+</mapper>

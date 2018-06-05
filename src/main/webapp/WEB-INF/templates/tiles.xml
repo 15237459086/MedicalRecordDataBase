@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+   
+
+	<!-- 定义一个默认模板页 -->
+    <definition name="default_template_base" template="/WEB-INF/templates/layout/default_template.jsp">
+    </definition>
+
+	 <!-- 继承默认模板 -->
+    <definition name="*.default" extends="default_template_base">
+        <put-attribute name="title" value="胡桃健康" />
+        <put-attribute name="header" value="/WEB-INF/templates/layout/header.jsp" />
+        <put-attribute name="body" value="/WEB-INF/templates/{1}.jsp" />
+    </definition>
+
+</tiles-definitions>

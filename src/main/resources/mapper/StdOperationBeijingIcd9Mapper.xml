@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kurumi.mapper.StdOperationBeijingIcd9Mapper" >
+  <resultMap id="operationIcd9" type="com.kurumi.pojo.StdOperationBeijingIcd9" >
+    <id column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="std_ops_operation_mark_id" property="stdOperationMarkId" jdbcType="INTEGER" />
+    <result column="en_name" property="enName" jdbcType="VARCHAR" />
+    <result column="alias_name" property="aliasName" jdbcType="VARCHAR" />
+    <result column="alias_name_index" property="aliasNameIndex" jdbcType="VARCHAR" />
+    <result column="index_code" property="indexCode" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  
+   <select id="getStdOperationIcd9s" resultMap = "operationIcd9" parameterType="com.kurumi.query.BasicDataQuery">
+  	select * from std_operation_beijing_icd9 where 1=1
+  	<if test="name!=null">
+  	 	and name like CONCAT('%',#{name},'%')  
+  	</if>
+  	 <if test="code != null">
+  	 	and code like CONCAT('%',#{code},'%')  
+  	</if>
+  	 <if test="indexCode != null">
+  	 	and index_code like CONCAT('%',#{indexCode},'%') 
+  	</if>
+  	 limit #{currentStartNum},#{pageSize}
+  </select>
+  
+   <select id="getCountByParams" parameterType="com.kurumi.query.BasicDataQuery" resultType="java.lang.Integer">
+  	select count(*) from std_operation_beijing_icd9  where 1=1
+   	<if test="name!=null">
+  	 	and name like CONCAT('%',#{name},'%')  
+  	</if>
+  	 <if test="code != null">
+  	 	and code like CONCAT('%',#{code},'%')  
+  	</if>
+  	 <if test="indexCode != null">
+  	 	and index_code like CONCAT('%',#{indexCode},'%') 
+  	</if>
+  </select>
+  
+    <select id="selectByPrimaryKey" resultMap="operationIcd9" parameterType="java.lang.String">
+  	  	select * from std_operation_beijing_icd9 where code=#{code}
+  </select>
+  
+  
+   <insert id="insert" parameterType="com.kurumi.pojo.StdOperationBeijingIcd9" >
+    insert into std_operation_beijing_icd9
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="enName != null" >
+        en_name,
+      </if>
+      <if test="aliasName != null" >
+        alias_name,
+      </if>
+      <if test="aliasNameIndex != null" >
+        alias_name_index,
+      </if>
+      <if test="indexCode != null" >
+        index_code,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="stdOperationMarkId != null" >
+        std_ops_operation_mark_id,
+      </if>
+    
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="enName != null" >
+        #{enName,jdbcType=VARCHAR},
+      </if>
+      <if test="aliasName != null" >
+        #{aliasName,jdbcType=VARCHAR},
+      </if>
+      <if test="aliasNameIndex != null" >
+        #{aliasNameIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="indexCode != null" >
+        #{indexCode,jdbcType=VARCHAR},
+      </if>
+     
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="stdOperationMarkId != null" >
+        #{stdOperationMarkId,jdbcType=INTEGER},
+      </if>
+    
+    </trim>
+  </insert>
+  
+   <update id="updateByPrimaryKey" parameterType="com.kurumi.pojo.StdOperationBeijingIcd9" >
+    update std_operation_beijing_icd9
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="enName != null" >
+        en_name = #{enName,jdbcType=VARCHAR},
+      </if>
+      <if test="aliasName != null" >
+        alias_name = #{aliasName,jdbcType=VARCHAR},
+      </if>
+      <if test="aliasNameIndex != null" >
+        alias_name_index = #{aliasNameIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="indexCode != null" >
+        index_code = #{indexCode,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+       std_ops_operation_mark_id = #{stdOperationMarkId,jdbcType=INTEGER},
+    </set>
+    where code = #{code,jdbcType=VARCHAR}
+  </update>
+  
+   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+      delete from std_operation_beijing_icd9 where code=#{code}
+  </delete>
+  
+  
+</mapper>

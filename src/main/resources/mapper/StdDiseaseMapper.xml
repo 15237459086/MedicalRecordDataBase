@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kurumi.mapper.StdDiseaseMapper" >
+
+   <resultMap id="disease" type="com.kurumi.pojo.StdDisease" >
+    <id column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="en_name" property="enName" jdbcType="VARCHAR" />
+    <result column="alias_name" property="aliasName" jdbcType="VARCHAR" />
+    <result column="alias_name_index" property="aliasNameIndex" jdbcType="VARCHAR" />
+    <result column="index_code" property="indexCode" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    
+    <result column="fit_man_code_flag" property="fitManCodeFlag" jdbcType="CHAR" />
+    <result column="fit_woman_code_flag" property="womanCodeFlag" jdbcType="CHAR" />
+    <result column="un_death_flag" property="undeathFlag" jdbcType="CHAR" />
+    <result column="un_primary_flag" property="unPrimaryFlag" jdbcType="CHAR" />
+    <result column="clinical_diagnosis" property="clinicalDiagnosis" jdbcType="VARCHAR" />
+    
+       <result column="clinical_diagnosis_index" property="diagnosisIndex" jdbcType="VARCHAR" />
+    <result column="attention_flag" property="attentionFlag" jdbcType="CHAR" />
+    <result column="attention_comment" property="attentionComment" jdbcType="VARCHAR" />
+    <result column="std_region_code" property="regionCode" jdbcType="VARCHAR" />
+    <result column="std_province_code" property="provinceCode" jdbcType="VARCHAR" />
+    <result column="international_disease_version" property="interDiseaseVersion" jdbcType="VARCHAR" />
+    <result column="attributes_id" property="attributeId" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+ 
+   <select id="getDiseases" resultMap = "disease" parameterType="com.kurumi.query.BasicDataQuery">
+  	select * from std_disease disease where 1=1
+  	<if test="name!=null">
+  	 	and disease.name like CONCAT('%',#{name},'%')  
+  	</if>
+  	 <if test="code != null">
+  	 	and disease.code like CONCAT('%',#{code},'%')  
+  	</if>
+  	 <if test="indexCode != null">
+  	 	and disease.index_code like CONCAT('%',#{indexCode},'%') 
+  	</if>
+  	 limit #{currentStartNum},#{pageSize}
+  </select>
+  
+   <select id="getCountByParams" parameterType="com.kurumi.query.BasicDataQuery" resultType="java.lang.Integer">
+  	select count(*) from std_disease disease  where 1=1
+   	<if test="name!=null">
+  	 	and disease.name like CONCAT('%',#{name},'%')  
+  	</if>
+  	 <if test="code != null">
+  	 	and disease.code like CONCAT('%',#{code},'%')  
+  	</if>
+  	 <if test="indexCode != null">
+  	 	and disease.index_code like CONCAT('%',#{indexCode},'%') 
+  	</if>
+  </select>
+  
+   <select id="selectByPrimaryKey" resultMap="disease" parameterType="java.lang.String">
+  	  	select * from std_disease where code=#{code}
+  </select>
+  
+    <insert id="insert" parameterType="com.kurumi.pojo.StdDisease" >
+  		insert into std_disease
+  	  <trim prefix="(" suffix=")" suffixOverrides="," >
+    	<if test="code != null" >
+        code,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+       <if test="enName != null" >
+        en_name,
+      </if>
+      <if test="indexCode != null" >
+        index_code,
+      </if>
+      <if test="aliasName != null" >
+        alias_name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="aliasNameIndex != null" >
+        alias_name_index,
+      </if>
+      
+      <if test="comment != null" >
+        comment,
+      </if>
+       fit_man_code_flag,
+       fit_woman_code_flag,
+       un_death_flag,
+       un_primary_flag,
+       attention_flag,
+      <if test="clinicalDiagnosis != null" >
+        clinical_diagnosis,
+      </if>
+      
+       <if test="diagnosisIndex != null" >
+        clinical_diagnosis_index,
+      </if>
+
+      <if test="attentionComment != null" >
+        attention_comment,
+      </if>
+      
+        <if test="regionCode != null" >
+        std_region_code,
+      </if>
+      <if test="provinceCode != null" >
+        std_province_code,
+      </if>
+      <if test="interDiseaseVersion != null" >
+        international_disease_version,
+      </if>
+       <if test="attributeId != null" >
+        attributes_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+     
+ 	<if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+ 	<if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+       <if test="enName != null" >
+         #{enName,jdbcType=VARCHAR},
+      </if>
+      <if test="indexCode != null" >
+         #{indexCode,jdbcType=VARCHAR},
+      </if>
+      <if test="aliasName != null" >
+         #{aliasName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+         #{status,jdbcType=INTEGER},
+      </if>
+      <if test="aliasNameIndex != null" >
+        #{aliasNameIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+         #{comment,jdbcType=VARCHAR},
+      </if>
+       		#{fitManCodeFlag,jdbcType=CHAR},
+       		 #{womanCodeFlag,jdbcType=CHAR},
+       		 #{undeathFlag,jdbcType=CHAR},
+       		#{unPrimaryFlag,jdbcType=CHAR},
+       		#{attentionFlag,jdbcType=CHAR},
+      <if test="clinicalDiagnosis != null" >
+        #{clinicalDiagnosis,jdbcType=VARCHAR},
+      </if>
+      
+       <if test="diagnosisIndex != null" >
+        #{diagnosisIndex,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="attentionComment != null" >
+        #{attentionComment,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="regionCode != null" >
+        #{regionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null" >
+         #{provinceCode,jdbcType=INTEGER},
+      </if>
+      <if test="interDiseaseVersion != null" >
+         #{interDiseaseVersion,jdbcType=VARCHAR},
+      </if>
+         #{attributeId,jdbcType=INTEGER},
+    </trim>
+  </insert>
+  
+   <update id="updateByPrimaryKey" parameterType="com.kurumi.pojo.StdDisease" >
+    update std_disease
+    <set >
+
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+       <if test="enName != null" >
+        en_name = #{enName,jdbcType=VARCHAR},
+      </if>
+      <if test="indexCode != null" >
+        index_code = #{indexCode,jdbcType=VARCHAR},
+      </if>
+      <if test="aliasName != null" >
+        alias_name= #{aliasName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status= #{status,jdbcType=INTEGER},
+      </if>
+      <if test="aliasNameIndex != null" >
+        alias_name_index= #{aliasNameIndex,jdbcType=VARCHAR},
+      </if>
+
+      <if test="comment != null" >
+        comment= #{comment,jdbcType=VARCHAR},
+      </if>
+       		fit_man_code_flag= #{fitManCodeFlag,jdbcType=CHAR},
+       		fit_woman_code_flag= #{womanCodeFlag,jdbcType=CHAR},
+       		un_death_flag= #{undeathFlag,jdbcType=CHAR},
+       		un_primary_flag= #{unPrimaryFlag,jdbcType=CHAR},
+      <if test="clinicalDiagnosis != null" >
+        clinical_diagnosis= #{clinicalDiagnosis,jdbcType=VARCHAR},
+      </if>
+      
+       <if test="diagnosisIndex != null" >
+        clinical_diagnosis_index= #{diagnosisIndex,jdbcType=VARCHAR},
+      </if>
+      
+       		attention_flag= #{attentionFlag,jdbcType=CHAR},
+      <if test="attentionComment != null" >
+        attention_comment= #{attentionComment,jdbcType=VARCHAR},
+      </if>
+      
+        <if test="regionCode != null" >
+        std_region_code= #{regionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceCode != null" >
+        std_province_code= #{provinceCode,jdbcType=INTEGER},
+      </if>
+      <if test="interDiseaseVersion != null" >
+        international_disease_version= #{interDiseaseVersion,jdbcType=VARCHAR},
+      </if>
+        attributes_id= #{attributeId,jdbcType=INTEGER},
+    </set>
+    where code = #{code,jdbcType=VARCHAR}
+  </update>
+  
+ <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+      delete from std_disease where code=#{code}
+  </delete>
+</mapper>

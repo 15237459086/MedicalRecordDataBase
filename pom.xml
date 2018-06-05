@@ -1,0 +1,190 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.kurumi.medical</groupId>
+  <artifactId>MedicalRecordDataBase</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <!-- 
+spring boot 父节点依赖,引入这个之后相关的引入就不需要添加version配置，spring boot会自动选择最合适的版本进行添加。
+ -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.4.1.RELEASE</version>
+	</parent>
+	
+  <properties>
+  	<commons-lang3.version>3.3.2</commons-lang3.version>
+	<commons-io.version>1.3.2</commons-io.version>
+	<commons-net.version>3.3</commons-net.version>
+  	<commons-fileupload.version>1.3.1</commons-fileupload.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- 指定一下jdk的版本 ，这里我们使用jdk 1.8 ,默认是1.6 -->
+    <java.version>1.8</java.version>
+    <shiro.version>1.2.4</shiro.version>
+  </properties>
+
+  <dependencies>
+  		<!-- 
+  			spring-boot-starter-web: MVC,AOP的依赖包....
+  		 -->
+  		<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+				<!-- 
+					<version></version>
+					由于我们在上面指定了 parent(spring boot)
+				 -->
+		</dependency>
+
+		
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>4.11</version>
+		    <scope>test</scope>
+	   </dependency>
+		
+		<dependency>
+		    <groupId>org.aspectj</groupId>
+		    <artifactId>aspectjrt</artifactId>
+		</dependency>
+		
+		<dependency> 
+		    <groupId>org.aspectj</groupId> 
+		    <artifactId>aspectjweaver</artifactId> 
+		    <version>1.6.12</version> 
+		</dependency> 
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+		
+		<!-- 添加fastjson 依赖包. -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.15</version>
+		</dependency>
+		
+		<!-- spring boot devtools 依赖包. -->
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+           <scope>true</scope>
+		</dependency>
+		
+		<!-- mysql 数据库驱动. -->
+		<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>5.1.32</version>
+		</dependency>	
+		
+		<!-- mybatis -->
+		<dependency>
+		    <groupId>org.mybatis.spring.boot</groupId>
+		    <artifactId>mybatis-spring-boot-starter</artifactId>
+		    <version>1.1.1</version>
+		</dependency>
+		
+		<!--mapper-->
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper-spring-boot-starter</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        
+        <!-- shiro -->
+		<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-core</artifactId>
+				<version>${shiro.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-web</artifactId>
+				<version>${shiro.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-spring</artifactId>
+				<version>${shiro.version}</version>
+			</dependency>
+			
+		<!-- Apache工具组件 -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>${commons-lang3.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons-io.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-net</groupId>
+				<artifactId>commons-net</artifactId>
+				<version>${commons-net.version}</version>
+			</dependency>
+			
+		<!-- 文件上传组件 -->
+			<dependency>
+				<groupId>commons-fileupload</groupId>
+				<artifactId>commons-fileupload</artifactId>
+				<version>${commons-fileupload.version}</version>
+			</dependency>
+			<!-- tiles start -->
+	        <dependency>
+	            <groupId>org.apache.tiles</groupId>
+	            <artifactId>tiles-extras</artifactId>
+	            <version>3.0.7</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.apache.tiles</groupId>
+	            <artifactId>tiles-servlet</artifactId>
+	            <version>3.0.7</version>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.apache.tiles</groupId>
+	            <artifactId>tiles-jsp</artifactId>
+	            <version>3.0.7</version>
+	        </dependency>
+	        <!-- tiles end -->
+  </dependencies>
+
+	<!-- 构建节点. -->
+	<build>
+		<plugins>
+			<!-- 这是spring boot devtool plugin -->
+			<plugin>
+	            <groupId>org.springframework.boot</groupId>
+	            <artifactId>spring-boot-maven-plugin</artifactId>
+	            <configuration>
+	          		<!--fork :  如果没有该项配置，肯呢个devtools不会起作用，即应用不会restart -->
+	                <fork>true</fork>
+	            </configuration>
+	        </plugin>
+	         <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <warName>demo</warName>
+                </configuration>
+            </plugin>
+		</plugins>
+	</build>	
+  
+</project>

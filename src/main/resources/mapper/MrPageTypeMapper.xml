@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kurumi.mapper.MrPageTypeMapper" >
+ <resultMap id="mrPageType" type="com.kurumi.pojo.MrPageType" >
+    <id column="id" property="pageTypeId" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="index_code" property="indexCode" jdbcType="VARCHAR" />
+    <result column="sort_code" property="sortCode" jdbcType="VARCHAR" />
+     <result column="en_name" property="enName" jdbcType="VARCHAR" />
+     <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="hospital_id" property="hospitalId" jdbcType="INTEGER" />
+  </resultMap>
+  
+   <select id="getMrPageTypes" resultType="map" parameterType="com.kurumi.query.BasicDataQuery">
+  	select med.id pageTypeId, med.code, med.name,med.index_code indexCode, med.sort_code sortCode,med.en_name enName,med.comment,med.status,med.hospital_id,hp.name hospitalName from mr_page_type med left join hospital hp on med.hospital_id=hp.id where 1=1
+  	<if test="name!=null">
+  	 	and med.name=#{name}
+  	</if>
+  	 <if test="hospitalId != null">
+  	 	and hp.id=#{hospitalId}
+  	</if>
+  	 order by med.sort_code desc
+  	 limit #{currentStartNum},#{pageSize}
+  </select>
+  
+   <select id="getCountByParams" parameterType="com.kurumi.query.BasicDataQuery" resultType="java.lang.Integer">
+  	select count(*) from mr_page_type med left join hospital hp on med.hospital_id=hp.id where 1=1
+  	<if test="name!=null">
+  	 	and med.name=#{name}
+  	</if>
+  	 <if test="hospitalId != null">
+  	 	and hp.id=#{hospitalId}
+  	</if>
+  </select>
+  
+   <select id="selectByPrimaryKey" resultType="mrPageType" parameterType="java.lang.Integer">
+  	  	select med.id pageTypeId, med.code, med.name,med.index_code indexCode, med.sort_code sortCode,med.en_name enName,med.comment,med.status,
+  	  	med.hospital_id hospitalId,hp.name hospitalName,mpt.id mrPrintTypeId,mpt.name from mr_page_type med 
+  	  	left join hospital hp on med.hospital_id=hp.id left join medical_printer_range mpr on med.id=mpr.mr_page_type_id 
+  	  	left join mr_printer_type mpt on mpr.mr_printer_type_id=mpt.id where med.id=#{id}
+  </select>
+  
+  <insert id="insertMrPage" parameterType="mrPageType" keyProperty="pageTypeId" useGeneratedKeys="true">
+    insert into mr_page_type
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pageTypeId != null" >
+        id,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="indexCode != null" >
+        index_code,
+      </if>
+      <if test="sortCode != null" >
+        sort_code,
+      </if>
+       <if test="enName != null" >
+        en_name,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="hospitalId != null" >
+        hospital_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pageTypeId != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="indexCode != null" >
+        #{indexCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sortCode != null" >
+        #{sortCode,jdbcType=VARCHAR},
+      </if>
+       <if test="enName != null" >
+         #{enName,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+         #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="hospitalId != null" >
+        #{hospitalId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+ 
+ 
+  <update id="updateByPrimaryKey" parameterType="mrPageType" >
+    update mr_page_type
+    <set >
+       <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="indexCode != null" >
+        index_code = #{indexCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sortCode != null" >
+        sort_code= #{sortCode,jdbcType=VARCHAR},
+      </if>
+       <if test="enName != null" >
+         en_name=#{enName,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+         comment=#{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status= #{status,jdbcType=INTEGER},
+      </if>
+      <if test="hospitalId != null" >
+        hospital_id= #{hospitalId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{pageTypeId,jdbcType=INTEGER}
+  </update>
+ <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+      delete from mr_page_type where id=#{id}
+  </delete>
+  
+  <select id="validateIsUse" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select count(*) from medical_resource where 1=1
+  	<if test="_parameter !=null and _parameter !='' ">
+  	 	and mr_page_type=#{id}
+  	</if>
+  </select>
+  
+  <select id="getPageRangeByPageTypeId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  	select count(*) from medical_printer_range where 1=1
+  	<if test="_parameter !=null and _parameter !='' ">
+  	 	and mr_page_type_id=#{id}
+  	</if>
+  </select>
+   
+  <select id="getPageTypeListByHospitalId" resultType="map" parameterType="java.lang.Integer">
+  	select * from mr_page_type where 1=1
+  	 <if test="_parameter != null">
+  	 	and hospital_id=#{hospitalId}
+  	</if>
+  </select>
+</mapper>

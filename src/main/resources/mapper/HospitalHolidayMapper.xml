@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kurumi.mapper.HolidayMapper">
+
+	
+	<select id="getHolidays" resultType="java.lang.String">
+		select date_format(holiday.holidays_date,'%Y-%m-%d') as holidays_date_format 
+		from hospital_holidays holiday
+		where holiday.holidays_date  >= #{startDate} and  #{endDate} >= holiday.holidays_date
+	</select>
+
+
+	<insert id="insert" parameterType="com.kurumi.pojo.HospitalHoliday"
+		keyProperty="id" useGeneratedKeys="true">
+		insert into hospital_holidays
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="holidaysDate != null">
+				holidays_date,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="holidaysDate != null">
+				#{holidaysDate,jdbcType=DATE},
+			</if>
+		</trim>
+	</insert>
+
+
+
+	<delete id="deleteByHolidayDate">
+		delete from hospital_holidays where holidays_date=#{holidayDate}
+	</delete>
+	
+	<delete id="deleteByStartDateAndEndDate">
+		delete from hospital_holidays
+		where holidays_date  >= #{startDate} and  #{endDate} >= holidays_date
+	</delete>
+
+</mapper>

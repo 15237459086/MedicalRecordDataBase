@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kurumi.mapper.QualityControlStandardMapper">
+	<resultMap id="BaseResultMap" type="com.kurumi.pojo.QualityControlStandard">
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="code" property="code" jdbcType="VARCHAR" />
+		<result column="project" property="project" jdbcType="VARCHAR" />
+		<result column="score" property="score" jdbcType="DECIMAL" />
+		<result column="mark" property="mark" jdbcType="VARCHAR" />
+		<result column="parent_code" property="parentCode" jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<!-- 获取第一级指控标准 -->
+	<select id="getQualityControlOfFirstLevel" resultType="map">
+		select t.id,t.code,t.project,t.score,t.mark 
+		from quality_control_standard t where
+		code like '_';
+	</select>
+
+	<!-- 依据上一级编号获取指控标准 -->
+	<select id="getQualityControlByUpOneLevelCode" resultType="map">
+		select t.id,t.code,t.project,t.score,t.mark
+		from quality_control_standard t where
+		t.code like #{upOneLevelCode}
+	</select>
+	
+	<!-- 依据编号获取指控标准数量 -->
+	<select id="getQualityControlCountByCode" resultType="int">
+		select count(t.id)
+		from quality_control_standard t where
+		t.code = #{code}
+	</select>
+	
+	<!-- 依据编号获取指控标准数量 -->
+	<select id="getQualityControlCountByCodeAndNotEQId" resultType="int">
+		select count(t.id)
+		from quality_control_standard t where
+		t.code = #{code} and t.id !=#{id}
+	</select>
+
+
+	<insert id="insert" parameterType="com.kurumi.pojo.QualityControlStandard">
+		insert into quality_control_standard
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="code != null">
+				code,
+			</if>
+			<if test="project != null">
+				project,
+			</if>
+			<if test="score != null">
+				score,
+			</if>
+			<if test="mark != null">
+				mark,
+			</if>
+			<if test="parentCode != null">
+				parent_code,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="code != null">
+				#{code,jdbcType=VARCHAR},
+			</if>
+			<if test="project != null">
+				#{project,jdbcType=VARCHAR},
+			</if>
+
+			<if test="score != null">
+				#{score,jdbcType=DECIMAL},
+			</if>
+			<if test="mark != null">
+				#{mark,jdbcType=VARCHAR},
+			</if>
+			<if test="parentCode != null">
+				#{parentCode,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="update" parameterType="com.kurumi.pojo.QualityControlStandard" >
+    update quality_control_standard
+    <set >
+        code = #{code,jdbcType=VARCHAR},
+        project = #{project,jdbcType=VARCHAR},
+        score = #{score,jdbcType=DECIMAL},
+        mark = #{mark,jdbcType=VARCHAR}
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>
