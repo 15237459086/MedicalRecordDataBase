@@ -32,6 +32,21 @@ public class BasicEncodingController {
 		return "basic_encoding_index.default";
 	}
 	
+	@RequestMapping("/basic_cure_index")
+	public String basicCureIndex(){
+		return "basic_cure_index.default";
+	}
+	
+	@RequestMapping("/basic_operate_index")
+	public String basicOperateIndex(){
+		return "basic_operate_index.default";
+	}
+	
+	@RequestMapping("/basic_icd_index")
+	public String basicICDIndex(){
+		return "basic_icd_index.default";
+	}
+	
 	@RequestMapping("/basic_encoding_page")
 	public String basicEncodingPage(Model model,BasicEncodingQuery params){
 		TableNameEnum tableNameEnum =TableNameEnum.valueOf(params.getTableName());
@@ -39,6 +54,23 @@ public class BasicEncodingController {
 		model.addAttribute("params", params);
 		return "basic/basic_encoding_page";
 	}
+	
+	@RequestMapping("/basic_cure_page")
+	public String basicCurePage(Model model,BasicEncodingQuery params){
+		TableNameEnum tableNameEnum =TableNameEnum.valueOf(params.getTableName());
+		model.addAttribute("tableNameEnum", tableNameEnum);
+		model.addAttribute("params", params);
+		return "basic/basic_cure_page";
+	}
+	
+	@RequestMapping("/basic_operate_page")
+	public String basicOperatePage(Model model,BasicEncodingQuery params){
+		TableNameEnum tableNameEnum =TableNameEnum.valueOf(params.getTableName());
+		model.addAttribute("tableNameEnum", tableNameEnum);
+		model.addAttribute("params", params);
+		return "basic/basic_operate_page";
+	}
+	
 	
 	@RequestMapping("/query_basic_encoding")
 	@ResponseBody

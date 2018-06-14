@@ -21,7 +21,14 @@ request.setAttribute("basePath", basePath);
 	   <h4 class="li_t"><a onclick="loadContent('${basePath }basic/basic_encoding_page?tableName=RelativeRelation')">亲属关系管理</a></h4>
 	   <h4 class="li_t"><a onclick="loadContent('${basePath }basic/basic_encoding_page?tableName=Nationality')">国籍管理</a></h4>
 	   <h4 class="li_t"><a onclick="loadContent('${basePath }basic/basic_encoding_page?tableName=Nation')">民族管理</a></h4>
-	   <h4 class="li_t"><a onclick="loadContent('${basePath }basic/basic_encoding_page?tableName=Nation')">付费类型管理</a></h4>
+	   <h4 class="li_t"><a onclick="loadContent('${basePath }basic/basic_encoding_page?tableName=MedicalPaymentType')">付费方式管理</a></h4>
+	   <h4 class="li_t"><a onclick="loadContent('${basePath }basic/basic_encoding_page?tableName=IdentityDocumentType')">证件类型管理</a></h4>
+	   <h4 class="li_t"><a onclick="loadContent('${basePath }basic/basic_encoding_page?tableName=InHospitalType')">入院方式管理</a></h4>
+	   <h4 class="li_t"><a onclick="loadContent('${basePath }basic/basic_encoding_page?tableName=InHospitalizationState')">入院病情管理</a></h4>
+	   <h4 class="li_t"><a onclick="loadContent('${basePath }basic/basic_encoding_page?tableName=OutHospitalType')">离院方式管理</a></h4>
+	   
+	   
+	  
 	  </div>
 	 </div>
 	<div id="list_NR">

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kurumi.pojo.MrPrinterType;
 import com.kurumi.query.BasicDataQuery;
 import com.kurumi.service.BasicEncodingService;
-import com.kurumi.service.MrPrinterTypeService;
+import com.kurumi.service.PrintService;
 import com.kurumi.util.Result;
 
 @Controller
@@ -21,14 +21,14 @@ public class MrExportTypeController {
 	
 	
 	@Autowired
-	private MrPrinterTypeService mrPrinterTypeService;
+	private PrintService mrPrinterTypeService;
 	
 	@Autowired
 	private BasicEncodingService basicEncodingService;
 	
 	@RequestMapping("/getMrPrinterTypes")
 	public String getMrPrinterTypes(Model model,BasicDataQuery params){
-		List<Map<String, Object>> basics = mrPrinterTypeService.getMrPrintTypes(params);
+		List<Map<String, Object>> basics = mrPrinterTypeService.getMrPrintTypes();
 		int count = mrPrinterTypeService.getCountByParams(params);
 		params.setTotalCounts(count);
 		List<Map<String, Object>> hospitals = basicEncodingService.getBasicDataList("hospital");

@@ -6,7 +6,15 @@ import java.util.Map;
 import com.kurumi.pojo.MrPrinterType;
 import com.kurumi.query.BasicDataQuery;
 
-public interface MrPrinterTypeService {
+public interface PrintService {
+	
+	List<Map<String,Object>> getMrPrintTypes();
+	
+	List<Map<String,Object>> getMrPageTypes();
+	
+	List<Integer> getMrPageTypeIdsByPrintTypeId(Integer printerTypeId);
+	
+	int updateMrPrinterRanges(Integer printerTypeId,List<Integer> pageTypeIds);
 	
 	int deleteByPrimaryKey(Integer id);
 
@@ -16,9 +24,9 @@ public interface MrPrinterTypeService {
 
     int updateByPrimaryKey(MrPrinterType record);
 
-    List<Map<String,Object>> getMrPrintTypes(BasicDataQuery params);
     
-    public List<Map<String, Object>> getPageTypeList(Integer hospitalId);
+    
+    List<Map<String, Object>> getPageTypeList(Integer hospitalId);
     
     int getCountByParams(BasicDataQuery params);
     

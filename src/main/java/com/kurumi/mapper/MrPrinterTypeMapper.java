@@ -3,10 +3,22 @@ package com.kurumi.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.kurumi.pojo.MrPrinterType;
 import com.kurumi.query.BasicDataQuery;
 
 public interface MrPrinterTypeMapper {
+	
+	List<Map<String,Object>> getMrPrintTypes();
+	    
+    List<Map<String,Object>> getMrPageTypes();
+    
+    List<Integer> getMrPageTypeIdsByPrintTypeId(Integer printerTypeId);
+	
+    int deleteByPrintTypeId(@Param("printerTypeId")Integer printerTypeId);
+    
+    int insertPrinterRange(@Param("printerTypeId")Integer printerTypeId,@Param("list")List<Integer> pageTypeIds);
 	
 	int deleteByPrimaryKey(Integer id);
 
@@ -18,7 +30,7 @@ public interface MrPrinterTypeMapper {
 
     int updateByPrimaryKey(MrPrinterType record);
 
-    List<Map<String,Object>> getMrPrintTypes(BasicDataQuery params);
+   
     
     String getPrintRangeByPrintTypeId(Integer id);
     

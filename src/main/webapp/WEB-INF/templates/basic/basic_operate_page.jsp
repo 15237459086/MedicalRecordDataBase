@@ -8,7 +8,7 @@
 <script type="text/javascript" src="${basePath}assets/multiselect-master/js/multiselect.js"></script>
 <div class="loc">
 	<h3>${tableNameEnum.tableNameDesc }管理</h3>
-	<ul class="loc_loc"><li> 当前位置：基本数据 > ${tableNameEnum.tableNameDesc }管理</li>
+	<ul class="loc_loc"><li> 当前位置：手术数据 > ${tableNameEnum.tableNameDesc }管理</li>
 	</ul>
 	
 </div>
@@ -137,3 +137,4 @@
 	    </div>
 	</form>
 </div>
+

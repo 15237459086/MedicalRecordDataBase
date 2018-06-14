@@ -3,8 +3,11 @@ package com.kurumi.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.kurumi.pojo.StdDisease;
 import com.kurumi.query.BasicDataQuery;
+import com.kurumi.query.DiseaseQuery;
 
 public interface StdDiseaseMapper {
 	int deleteByPrimaryKey(String code);
@@ -15,13 +18,15 @@ public interface StdDiseaseMapper {
 
     int updateByPrimaryKey(StdDisease record);
 
-    List<StdDisease> getDiseases(BasicDataQuery params);
+    List<Map<String,Object>> getDiseasesByDiseaseQuery(DiseaseQuery params);
     
-    int getCountByParams(BasicDataQuery params);
+    int getDiseasesCountByDiseaseQuery(DiseaseQuery params);
     
-   int validateCodeIsUnique(String code);
+    int selectCountByPrimaryKey(@Param("code")String code);
     
-  //模糊查询查询国际疾病编号
+    int validateCodeIsUnique(String code);
+    
+   //模糊查询查询国际疾病编号
     List<Map<String,Object>> queryDiseaseByLikeCode(String diseaseCode);
     
     //模糊查询查询国际疾病索引码

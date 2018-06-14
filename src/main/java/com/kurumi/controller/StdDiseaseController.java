@@ -1,6 +1,7 @@
 package com.kurumi.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,7 +28,8 @@ public class StdDiseaseController{
 
 	@RequestMapping("/getDiseases")
 	public String getDiseaseList(Model model,BasicDataQuery params){
-		List<StdDisease> basics = stdDiseaseService.getDiseases(params);
+		/*List<StdDisease> basics = stdDiseaseService.getDiseases(params);*/
+		List<StdDisease> basics = new ArrayList<StdDisease>();
 		
 /*		if(basics!=null){
 			for(int i=0;i<basics.size();i++){
@@ -36,7 +38,8 @@ public class StdDiseaseController{
 			}
 		}*/
 		
-		int count = stdDiseaseService.getCountByParams(params);
+		/*int count = stdDiseaseService.getCountByParams(params);*/
+		int count = 0;
 		params.setTotalCounts(count);
 		model.addAttribute("count",count);
 		model.addAttribute("basics", basics);

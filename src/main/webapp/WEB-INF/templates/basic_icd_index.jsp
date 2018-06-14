@@ -14,10 +14,9 @@ request.setAttribute("basePath", basePath);
 <div id="list_main">
 	<div id="list_DH">
 	  <div class="list_menu2">
-	   <h3>打印设置</h3>
-	   <h4 class="li_t"><a onclick="loadContent('${basePath }basic/basic_encoding_page?tableName=MrPageType')">编页标签管理</a></h4>
-	   <h4 class="li_t"><a onclick="loadContent('${basePath }basic/basic_encoding_page?tableName=MrPrinterType')">打印类型管理</a></h4>
-	   <h4 class="li_t"><a onclick="loadContent('${basePath }print/print_type_page')">打印内容设置</a></h4>
+	   <h3>ICD数据</h3>
+	   <h4 class="li_t"><a onclick="loadContent('${basePath }icd/icd_disease_page')">ICD_10</a></h4>
+	   <h4 class="li_t"><a onclick="loadContent('${basePath }basic/basic_cure_page?tableName=RhBloodType')">ICD_9_CM</a></h4>
 	  </div>
 	 </div>
 	<div id="list_NR">

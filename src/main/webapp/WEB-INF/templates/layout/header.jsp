@@ -39,9 +39,11 @@ request.setAttribute("basePath", basePath);
  <ul class="multiUl">
   <li><a href="${basePath }index">首页</a></li>
   <li><a href="${basePath }basic/basic_encoding_index">基本数据</a></li>
+  <li><a href="${basePath }basic/basic_cure_index">治疗数据</a></li>
   <li><a href="${basePath }holiday/holiday_index">节假日数据</a></li>
   <li><a href="${basePath }quality_control/quality_control_index">质控数据</a></li>
-  <li><a href="${basePath }index">ICD数据</a></li>
+  <li><a href="${basePath }basic/basic_icd_index">ICD数据</a></li>
+  <li><a href="${basePath }basic/basic_operate_index">手术数据</a></li>
   <li><a href="${basePath }print/print_index">打印设置</a></li>
  </ul>
 </div>

@@ -11,7 +11,7 @@ import com.kurumi.datasource.TargetDataSource;
 import com.kurumi.mapper.BasicEncodingMapper;
 import com.kurumi.mapper.StdDiseaseMapper;
 import com.kurumi.pojo.StdDisease;
-import com.kurumi.query.BasicDataQuery;
+import com.kurumi.query.DiseaseQuery;
 import com.kurumi.service.StdDiseaseService;
 @Service
 public class StdDiseaseServiceImpl implements StdDiseaseService{
@@ -21,6 +21,45 @@ public class StdDiseaseServiceImpl implements StdDiseaseService{
 	@Autowired
 	private BasicEncodingMapper basicEncodingMapper;
 
+	
+	@Override
+	@TargetDataSource(name="ds1")
+	public List<Map<String,Object>> getDiseasesByDiseaseQuery(DiseaseQuery params){
+		return stdDiseaseMapper.getDiseasesByDiseaseQuery(params);
+	}
+
+	@Override
+	@TargetDataSource(name="ds1")
+	public int getDiseasesCountByDiseaseQuery(DiseaseQuery params) {
+		return stdDiseaseMapper.getDiseasesCountByDiseaseQuery(params);
+	}
+
+	@Override
+	@Transactional
+	@TargetDataSource(name="ds1")
+	public int insert(StdDisease record) {
+		int result = stdDiseaseMapper.selectCountByPrimaryKey(record.getCode());
+		if(result >=1){
+			return 2;
+		}
+		if(record.getFitManCodeFlag() == null){
+			record.setFitManCodeFlag("0");
+		}
+		if(record.getFitWomanCodeFlag()== null){
+			record.setFitWomanCodeFlag("0");
+		}
+		if(record.getUnDeathFlag()== null){
+			record.setUnDeathFlag("0");
+		}
+		if(record.getUnPrimaryFlag()== null){
+			record.setUnPrimaryFlag("0");
+		}
+		if(record.getAttentionFlag()== null){
+			record.setAttentionFlag("0");
+		}
+		return stdDiseaseMapper.insert(record);
+	}
+	
 	@Override
 	@Transactional
 	@TargetDataSource(name="ds1")
@@ -28,12 +67,7 @@ public class StdDiseaseServiceImpl implements StdDiseaseService{
 		return stdDiseaseMapper.deleteByPrimaryKey(code);
 	}
 
-	@Override
-	@Transactional
-	@TargetDataSource(name="ds1")
-	public int insert(StdDisease record) {
-		return stdDiseaseMapper.insert(record);
-	}
+	
 
 	@Override
 	@TargetDataSource(name="ds1")
@@ -48,18 +82,7 @@ public class StdDiseaseServiceImpl implements StdDiseaseService{
 		return stdDiseaseMapper.updateByPrimaryKey(record);
 	}
 
-	@Override
-	@TargetDataSource(name="ds1")
-	public List<StdDisease> getDiseases(BasicDataQuery params) {
-		return stdDiseaseMapper.getDiseases(params);
-	}
-
-	@Override
-	@TargetDataSource(name="ds1")
-	public int getCountByParams(BasicDataQuery params) {
-		return stdDiseaseMapper.getCountByParams(params);
-	}
-
+	
 	@Override
 	@TargetDataSource(name="ds1")
 	public List<Map<String, Object>> getStdAttributeCodes() {

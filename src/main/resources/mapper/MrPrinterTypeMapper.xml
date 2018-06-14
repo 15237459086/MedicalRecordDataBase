@@ -2,27 +2,48 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kurumi.mapper.MrPrinterTypeMapper">
   <resultMap id="mrPrinterType" type="com.kurumi.pojo.MrPrinterType">
-     <id column="id" property="printTypeId" jdbcType="INTEGER" />
+    <id column="id" property="printTypeId" jdbcType="INTEGER" />
     <result column="code" property="code" jdbcType="VARCHAR" />
-       <result column="index_code" property="indexCode" jdbcType="VARCHAR" />
-    <result column="en_name" property="enName" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="en_name" property="enName" jdbcType="VARCHAR" />
+    <result column="index_code" property="indexCode" jdbcType="VARCHAR" />
+    <result column="sort_code" property="sortCode" jdbcType="VARCHAR" />
     <result column="comment" property="comment" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
-    <result column="hospital_id" property="hospitalId" jdbcType="INTEGER" />
   </resultMap>
  
-   <select id="getMrPrintTypes" resultType="map" parameterType="com.kurumi.query.BasicDataQuery">
-  	select med.id printTypeId, med.code, med.name, med.index_code indexCode,med.en_name enName,med.comment,med.status,med.hospital_id hospitalId,hp.name hospitalName from mr_printer_type med left join hospital hp on med.hospital_id=hp.id where 1=1
-  	<if test="name!=null">
-  	 	and med.name=#{name}
-  	</if>
-  	 <if test="hospitalId != null">
-  	 	and hp.id=#{hospitalId}
-  	</if>
-  	 order by med.id desc
-  	 limit #{currentStartNum},#{pageSize}
+   <select id="getMrPrintTypes" resultType="map">
+  	select printer_type.id, printer_type.code, 
+  		printer_type.name, printer_type.en_name, printer_type.index_code, 
+  		printer_type.sort_code,printer_type.comment
+  	from mr_printer_type printer_type
   </select>
+  
+  <select id="getMrPageTypes" resultType="map">
+  	select page_type.id, page_type.code, 
+  		page_type.name, page_type.en_name, page_type.index_code, 
+  		page_type.sort_code,page_type.comment
+  	from mr_page_type page_type
+  </select>
+  
+   <select id="getMrPageTypeIdsByPrintTypeId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+  	select printer_range.mr_page_type_id
+  	from mr_printer_range printer_range
+  	where printer_range.mr_printer_type_id = #{printerTypeId}
+  </select>
+  
+  <delete id="deleteByPrintTypeId" parameterType="java.lang.Integer">
+       delete from mr_printer_range
+       where mr_printer_type_id = #{printerTypeId}
+   </delete>
+   
+   <insert id="insertPrinterRange" >
+    insert into mr_printer_range (mr_printer_type_id,mr_page_type_id) values
+    
+    <foreach collection="list" item="item" separator="," >  
+        (#{printerTypeId,jdbcType=INTEGER}, #{item,jdbcType=INTEGER})
+    </foreach> 
+   </insert>
   
    <select id="getCountByParams" parameterType="com.kurumi.query.BasicDataQuery" resultType="java.lang.Integer">
   	select count(*) from mr_printer_type med left join hospital hp on med.hospital_id=hp.id where 1=1
