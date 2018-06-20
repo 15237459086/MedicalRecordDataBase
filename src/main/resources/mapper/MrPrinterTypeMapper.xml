@@ -45,15 +45,7 @@
     </foreach> 
    </insert>
   
-   <select id="getCountByParams" parameterType="com.kurumi.query.BasicDataQuery" resultType="java.lang.Integer">
-  	select count(*) from mr_printer_type med left join hospital hp on med.hospital_id=hp.id where 1=1
-  	<if test="name!=null">
-  	 	and med.name=#{name}
-  	</if>
-  	 <if test="hospitalId != null">
-  	 	and hp.id=#{hospitalId}
-  	</if>
-  </select>
+   
   
    <select id="selectByPrimaryKey" resultMap="mrPrinterType" parameterType="java.lang.Integer">
   	  select med.id printTypeId, med.code, med.name,med.index_code indexCode,med.en_name enName,med.comment,med.status,
@@ -158,12 +150,7 @@
       delete from mr_printer_type where id=#{id}
   </delete>
   
-<!--   <select id="validateIsUse" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-  	select count(*) from medical_printer_range where 1=1
-  	<if test="_parameter !=null and _parameter !='' ">
-  	 	and mr_printer_type_id=#{id} 
-  	</if>
-  </select> -->
+
   
     <select id="getPrintRangeByPrintTypeId" parameterType="java.lang.Integer" resultType="java.lang.String">
   	select GROUP_CONCAT(id) from medical_printer_range where 1=1

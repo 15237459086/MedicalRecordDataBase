@@ -10,7 +10,7 @@ public enum TableNameEnum {
 	DiagnoseType("诊断类型","diagnose_type"),TreatmentResult("治疗结果","treatment_result"),InHospitalizationDiseaseState("诊断状况","in_hospitalization_disease_state"),
 	StdIncisionLevel("切口等级","std_incision_level"),StdCicatrizationType("愈合类别","std_cicatrization_type"),StdOpsLevel("切口等级","std_ops_level"),
 	StdAnaesthesiaWay("麻醉方式","std_anaesthesia_way"),StdAnaesthesiaLevel("麻醉（ASA）分级","std_anaesthesia_level"),BodyPart("身体部位","body_part"),
-	RehospitalizationAim("再住院目的","rehospitalization_aim"),HospitalizationDealthReason("死亡原因","hospitalization_dealth_reason");
+	RehospitalizationAim("再住院目的","rehospitalization_aim"),HospitalizationDealthReason("死亡原因","hospitalization_dealth_reason"),StdOpsMark("手术标识","std_ops_mark"); 
 	
 	// 成员变量  
     private String tableNameDesc;  

@@ -248,6 +248,92 @@ function addRow(disease){
 	$("#query_show_table tbody").append(add_content);
 }
 
+function layerShow(obj){
+	var basePath = $("#basePath").val();
+	var content = $(obj).parent().parent();
+	var code = content.attr("id");
+	
+	
+	var add_content=$("#show_disease_div").clone();
+	add_content.find("form").attr("id","show_form");
+	var title = "预览ICD_10";
+	
+	layerUpdateDiseaseIndex = layer.open({
+		  type: 1,
+		  title:title,
+		  skin: 'layui-layer-rim', //加上边框
+		  area: ['740px', '400px'], //宽高
+		  content: add_content.html(),
+		  success: function(layero, index){
+			  $.ajax({
+					url: basePath + "icd/show_icd_disease",
+					type: "GET",
+					dataType: "json",
+					data:{code:code},
+					success: function( data ) {
+						var success = data['success'];
+						if(success){
+							var stateCode = data['stateCode'];
+							var stateMessage = data['stateMessage'];
+							if("1" == stateCode){
+								/*layer.close(layerCreateDiseaseIndex);*/
+								var disease = data['data'];
+								$("#show_form input[name='code']").val(disease.code);
+								$("#show_form input[name='name']").val(disease.name);
+								$("#show_form input[name='enName']").val(disease.enName);
+								$("#show_form input[name='indexCode']").val(disease.indexCode);
+								$("#show_form input[name='aliasName']").val(disease.aliasName);
+								$("#show_form input[name='aliasNameIndex']").val(disease.aliasNameIndex);
+								$("#show_form input[name='fitManCodeFlag'][value='"+disease.fitManCodeFlag+"']").attr("checked",true);
+								$("#show_form input[name='fitWomanCodeFlag'][value='"+disease.fitWomanCodeFlag+"']").attr("checked",true);
+								$("#show_form input[name='unDeathFlag'][value='"+disease.unDeathFlag+"']").attr("checked",true);
+								$("#show_form input[name='unPrimaryFlag'][value='"+disease.unPrimaryFlag+"']").attr("checked",true);
+								$("#show_form input[name='attentionFlag'][value='"+disease.attentionFlag+"']").attr("checked",true);
+								$("#show_form input[name='attentionComment']").val(disease.attentionComment);
+								$("#show_form input[name='comment']").val(disease.comment);
+								/*addRow(basicData);*/
+							}else{
+								layer.msg(stateMessage);
+							}
+						}else{
+							layer.msg("操作错误，请重试！");
+						}
+						console.log(data);
+						
+					},
+					error:function(XMLHttpRequest, textStatus, errorThrown){
+						layer.msg("未知错误，请联系管理员");
+					},
+					complete:function(XMLHttpRequest, textStatus){
+						layer.closeAll('loading');
+					}
+				});
+			  var validator = $("#update_disease_form").validate({
+					errorElement: "title",
+					ignoreTitle: true,
+					submitHandler : function(){
+						updateDiseaseFormSubmit();
+					},
+					rules:{
+						code: {
+							required: true,
+			                minlength: 1,
+			                maxlength: 20
+			            },
+			            name: {
+			            	required: true,
+			                minlength: 1,
+			                maxlength: 20
+			            }
+						
+					},
+					
+				});
+			  
+		  }
+		});
+}
+
 //显示新建数据Layer
 var layerUpdateDiseaseIndex
 function layerUpdateDisease(obj){

@@ -139,17 +139,6 @@ public class BasicEncodingController {
 	}
 	
 	
-	/*@RequestMapping("/getBasicEncodes")
-	public String getBasicEncodes(Model model,BasicDataQuery params){
-		List<Map<String, Object>> basics = basicEncodingService.getBasicEncoding(params);
-		int count = basicEncodingService.getBasicEncodingCount(params);
-		params.setTotalCounts(count);
-		model.addAttribute("count",count);
-		model.addAttribute("basics", basics);
-		params.setTitle(getTitleByTableName(params.getTableName()));
-		model.addAttribute("basicDataQuery", params);
-		return "basic/basicencodes";
-	}*/
 	
 	@RequestMapping("/addBasicEncodePage")
 	public String addBasicEncodePage(Model model,String tableName){
@@ -172,27 +161,7 @@ public class BasicEncodingController {
 	}
 	
 	
-	@RequestMapping("/showBasicEncode")
-	public String showBasicEncode(Model model,Integer id,String tableName,Integer currentPage,Integer pageSize,String name,Integer hospitalId){
-		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("id", id);
-		map.put("tableName", tableName);
-		BasicEncoding basicEncode = basicEncodingService.getBasicEncodingById(map);
-		basicEncode.setTableName(tableName);
-		if("medical_office".equals(tableName)){
-			List<Map<String, Object>> hospitals = basicEncodingService.getBasicDataList("hospital");
-			model.addAttribute("hospitals", hospitals);
-			model.addAttribute("hospitalId", hospitalId);
-		}
-		
-
-		model.addAttribute("basic", basicEncode);
-		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("pageSize", pageSize);
-		model.addAttribute("name", name);
-		model.addAttribute("title", getTitleByTableName(tableName));
-		return "basic/updatebasicencode";
-	}
+	
 	
 	@ResponseBody
 	@RequestMapping("/updateBasicEncode")
@@ -304,123 +273,6 @@ public class BasicEncodingController {
 		return title;
 	}
 	
-	@ResponseBody
-	@RequestMapping("/validateIdTypeIsUse")
-	public Result validateIdTypeIsUse(Integer id){
-		boolean result = false;
-		if(id!=null){
-			result = basicEncodingService.validateIdTypeIsUse(id);
-		}else{
-			System.err.println("验证证件类型是否被引用所需的编号为空");
-		}
-		return new Result(result);
-	}
-	
-	
-	@ResponseBody
-	@RequestMapping("/validateSexIsUse")
-	public Result validateSexIsUse(Integer id){
-		boolean result = false;
-		if(id!=null){
-			result = basicEncodingService.validateSexIsUse(id);
-		}else{
-			System.err.println("验证性别是否被引用所需的编号为空");
-		}
-		return new Result(result);
-	}
-	
-	@ResponseBody
-	@RequestMapping("/validateTreatmentIsUse")
-	public Result validateTreatmentIsUse(Integer signId,Integer typeId){
-		boolean result = false;
-		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("signId", signId);
-		map.put("typeId", typeId);
-		if(signId!=null || typeId!=null){
-			
-			result = basicEncodingService.validateTreatmentIsUse(map);
-		}else{
-			System.err.println("验证就诊标记就诊类型是否被引用所需的编号为空");
-		}
-		return new Result(result);
-	}
-	
-	@ResponseBody
-	@RequestMapping("/validateHospitalTypeIsUse")
-	public Result validateHospitalTypeIsUse(Integer inId,Integer outId){
-		boolean result = false;
-		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("inId", inId);
-		map.put("outId", outId);
-		if(inId!=null || outId!=null){
-			
-			result = basicEncodingService.validateHospitalTypeIsUse(map);
-		}else{
-			System.err.println("验证出入院方式是否被引用所需的编号为空");
-		}
-		return new Result(result);
-	}
-	
-	@ResponseBody
-	@RequestMapping("/validateHospitalIsUse")
-	public Result validateHospitalIsUse(Integer id){
-		boolean result = false;
-		if(id!=null){
-			
-			result = basicEncodingService.validateHospitalIsUse(id);
-		}else{
-			System.err.println("验证医院是否被引用所需的编号为空");
-		}
-		return new Result(result);
-	}
-	
-	@ResponseBody
-	@RequestMapping("/validateResourceTypeIsUse")
-	public Result validateResourceTypeIsUse(Integer id){
-		boolean result = false;
-		if(id!=null){
-			
-			result = basicEncodingService.validateResourceTypeIsUse(id);
-		}else{
-			System.err.println("验证资源文件类型是否被引用所需的编号为空");
-		}
-		return new Result(result);
-	}
-	
-	@ResponseBody
-	@RequestMapping("/validateStdAttributesCode")
-	public Result validateStdAttributesCode(Integer id){
-		boolean result = false;
-		if(id!=null){
-			result = basicEncodingService.validateStdAttributeCodeIsUse(id);
-		}else{
-			System.err.println("验证编码属性是否被引用所需的编号为空");
-		}
-		return new Result(result);
-	}
-	
-	@ResponseBody
-	@RequestMapping("/validateOperation")
-	public Result validateIncisionAndOpsLevelAndOpsMarkIsUse(Integer incisionLevelId,Integer opsLevelId,Integer opsMarkId){
-		Map<String,Integer> map = new HashMap<String, Integer>();
-		if(incisionLevelId!= null){
-			map.put("incisionLevelId", incisionLevelId);
-		}
-		if(opsLevelId!= null){
-			map.put("opsLevelId", opsLevelId);
-		}
-		if(opsMarkId!=null){
-			map.put("opsMarkId", opsMarkId);
-		}
-		
-		boolean result = false;
-		if(!map.isEmpty()){
-			result = basicEncodingService.validateIncisionAndOpsLevelAndOpsMarkIsUse(map);
-		}else{
-			System.err.println("验证切口等级、手术等级、手术标识是否被引用所需的编号为空");
-		}
-		return new Result(result);
-	}
 	
 	
 }

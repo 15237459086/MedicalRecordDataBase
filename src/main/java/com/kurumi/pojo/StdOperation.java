@@ -1,29 +1,31 @@
 package com.kurumi.pojo;
 
+import com.kurumi.util.StringUtil;
+
 public class StdOperation {
     private String code;
 
     private String name;
 
     private String enName;
+    
+    private String indexCode;
 
     private String aliasName;
 
     private String aliasNameIndex;
+    
+    private String operationMarkCode;
+    
+    private String operationMarkName;
 
-    private String indexCode;
+    private String incisionLevelCode;
 
-    private Integer attributesId;
-
-    private String comment;
-
-    private Integer stdOpsPerationMarkId;
-
-    private Integer stdIncisionLevelId;
-
-    private Integer stdOpsLevelId;
-
-    private Integer status;
+    private String incisionLevelName;
+    
+    private String operationLevelCode;
+    
+    private String operationLevelName;
 
     private String stdRegionCode;
 
@@ -31,124 +33,149 @@ public class StdOperation {
 
     private String interDiseaseVersion;
     
-
+    private String comment;
+    
+    private Integer status = 1;
+    
     public String getCode() {
-        return code;
+        return StringUtil.meaningStr(code);
     }
 
     public void setCode(String code) {
-        this.code = code == null ? null : code.trim();
+        this.code = code;
     }
 
     public String getName() {
-        return name;
+        return StringUtil.meaningStr(name);
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
     public String getEnName() {
-        return enName;
+        return StringUtil.meaningStr(enName);
     }
 
     public void setEnName(String enName) {
-        this.enName = enName == null ? null : enName.trim();
+        this.enName = enName;
     }
-
-    public String getAliasName() {
-        return aliasName;
-    }
-
-    public void setAliasName(String aliasName) {
-        this.aliasName = aliasName == null ? null : aliasName.trim();
-    }
-
-    public String getAliasNameIndex() {
-        return aliasNameIndex;
-    }
-
-    public void setAliasNameIndex(String aliasNameIndex) {
-        this.aliasNameIndex = aliasNameIndex == null ? null : aliasNameIndex.trim();
-    }
-
+    
     public String getIndexCode() {
-        return indexCode;
+        return StringUtil.meaningStr(indexCode);
     }
 
     public void setIndexCode(String indexCode) {
-        this.indexCode = indexCode == null ? null : indexCode.trim();
+        this.indexCode = indexCode;
     }
 
-    public Integer getAttributesId() {
-        return attributesId;
+    public String getAliasName() {
+        return StringUtil.meaningStr(aliasName);
     }
 
-    public void setAttributesId(Integer attributesId) {
-        this.attributesId = attributesId;
+    public void setAliasName(String aliasName) {
+        this.aliasName = aliasName;
     }
 
-    public String getComment() {
-        return comment;
+    public String getAliasNameIndex() {
+        return StringUtil.meaningStr(aliasNameIndex);
     }
 
-    public void setComment(String comment) {
-        this.comment = comment == null ? null : comment.trim();
+    public void setAliasNameIndex(String aliasNameIndex) {
+        this.aliasNameIndex = aliasNameIndex;
     }
 
-    public Integer getStdOpsPerationMarkId() {
-        return stdOpsPerationMarkId;
-    }
+	
 
-    public void setStdOpsPerationMarkId(Integer stdOpsPerationMarkId) {
-        this.stdOpsPerationMarkId = stdOpsPerationMarkId;
-    }
+	public String getOperationMarkCode() {
+		return StringUtil.meaningStr(operationMarkCode);
+	}
 
-    public Integer getStdIncisionLevelId() {
-        return stdIncisionLevelId;
-    }
+	public void setOperationMarkCode(String operationMarkCode) {
+		this.operationMarkCode = operationMarkCode;
+	}
 
-    public void setStdIncisionLevelId(Integer stdIncisionLevelId) {
-        this.stdIncisionLevelId = stdIncisionLevelId;
-    }
+	public String getOperationMarkName() {
+		return StringUtil.meaningStr(operationMarkName);
+	}
 
-    public Integer getStdOpsLevelId() {
-        return stdOpsLevelId;
-    }
+	public void setOperationMarkName(String operationMarkName) {
+		this.operationMarkName = operationMarkName;
+	}
 
-    public void setStdOpsLevelId(Integer stdOpsLevelId) {
-        this.stdOpsLevelId = stdOpsLevelId;
-    }
+	public String getIncisionLevelCode() {
+		return StringUtil.meaningStr(incisionLevelCode);
+	}
 
-    public Integer getStatus() {
-        return status;
-    }
+	public void setIncisionLevelCode(String incisionLevelCode) {
+		this.incisionLevelCode = incisionLevelCode;
+	}
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
+	public String getIncisionLevelName() {
+		return StringUtil.meaningStr(incisionLevelName);
+	}
 
-    public String getStdRegionCode() {
-        return stdRegionCode;
-    }
+	public void setIncisionLevelName(String incisionLevelName) {
+		this.incisionLevelName = incisionLevelName;
+	}
 
-    public void setStdRegionCode(String stdRegionCode) {
-        this.stdRegionCode = stdRegionCode == null ? null : stdRegionCode.trim();
-    }
+	public String getOperationLevelCode() {
+		return StringUtil.meaningStr(operationLevelCode);
+	}
 
-    public String getStdProvinceCode() {
-        return stdProvinceCode;
-    }
+	public void setOperationLevelCode(String operationLevelCode) {
+		this.operationLevelCode = operationLevelCode;
+	}
 
-    public void setStdProvinceCode(String stdProvinceCode) {
-        this.stdProvinceCode = stdProvinceCode == null ? null : stdProvinceCode.trim();
-    }
+	public String getOperationLevelName() {
+		return StringUtil.meaningStr(operationLevelName);
+	}
 
-    public String getInterDiseaseVersion() {
-        return interDiseaseVersion;
-    }
+	public void setOperationLevelName(String operationLevelName) {
+		this.operationLevelName = operationLevelName;
+	}
 
-    public void setInterDiseaseVersion(String interDiseaseVersion) {
-        this.interDiseaseVersion = interDiseaseVersion == null ? null : interDiseaseVersion.trim();
-    }
+	public String getStdRegionCode() {
+		return StringUtil.meaningStr(stdRegionCode);
+	}
+
+	public void setStdRegionCode(String stdRegionCode) {
+		this.stdRegionCode = stdRegionCode;
+	}
+
+	public String getStdProvinceCode() {
+		return StringUtil.meaningStr(stdProvinceCode);
+	}
+
+	public void setStdProvinceCode(String stdProvinceCode) {
+		this.stdProvinceCode = stdProvinceCode;
+	}
+
+	public String getInterDiseaseVersion() {
+		return StringUtil.meaningStr(interDiseaseVersion);
+	}
+
+	public void setInterDiseaseVersion(String interDiseaseVersion) {
+		this.interDiseaseVersion = interDiseaseVersion;
+	}
+
+	public String getComment() {
+		return StringUtil.meaningStr(comment);
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+    
+    
+
+    
 }

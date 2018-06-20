@@ -146,6 +146,10 @@
 <select id="getBasicEncodingById" resultMap="basicEncoding" parameterType="java.util.Map">
   	select * from ${tableName} where id=#{id}
   </select>
+  
+  <select id="getAllBasicEncoding" resultType="map">
+  	select * from ${tableName}
+  </select>
  <delete id="deleteBasicEncodingById" parameterType="java.util.Map">
       delete from ${tableName} where id=#{id}
   </delete>

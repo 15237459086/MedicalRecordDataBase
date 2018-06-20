@@ -25,15 +25,7 @@
   	 limit #{currentStartNum},#{pageSize}
   </select>
   
-   <select id="getCountByParams" parameterType="com.kurumi.query.BasicDataQuery" resultType="java.lang.Integer">
-  	select count(*) from mr_page_type med left join hospital hp on med.hospital_id=hp.id where 1=1
-  	<if test="name!=null">
-  	 	and med.name=#{name}
-  	</if>
-  	 <if test="hospitalId != null">
-  	 	and hp.id=#{hospitalId}
-  	</if>
-  </select>
+  
   
    <select id="selectByPrimaryKey" resultType="mrPageType" parameterType="java.lang.Integer">
   	  	select med.id pageTypeId, med.code, med.name,med.index_code indexCode, med.sort_code sortCode,med.en_name enName,med.comment,med.status,
@@ -139,12 +131,6 @@
       delete from mr_page_type where id=#{id}
   </delete>
   
-  <select id="validateIsUse" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-  	select count(*) from medical_resource where 1=1
-  	<if test="_parameter !=null and _parameter !='' ">
-  	 	and mr_page_type=#{id}
-  	</if>
-  </select>
   
   <select id="getPageRangeByPageTypeId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
   	select count(*) from medical_printer_range where 1=1

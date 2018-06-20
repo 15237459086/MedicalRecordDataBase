@@ -23,33 +23,8 @@ public interface BasicEncodingMapper {
 	int updateBasicEncodingById(BasicEncoding basic);
 	int deleteBasicEncodingById (Map<String,Object> map);
 	
-	int validateIdTypeIsUse(Integer id);
+	List<Map<String,Object>> getAllBasicEncoding(@Param("tableName")String tableName);
 	
 	
-	
-	int validateSexIsUse(Integer id);
-	
-	int validateTreatmentIsUse(Map<String, Object> map);
-	int validateHospitalTypeIsUse(Map<String, Object> map);
-	
-	List<Map<String,Object>> getBasicDataList(String tableName);
-	
-	int getFirstLevelMedicalByHospitalId(Integer id);
-	
-	int getMedicalOfficeByHospitalId(Integer id);
-	
-	int getPageTypeByHospitalId(Integer id);
-	
-	int getPrintTypeByHospitalId(Integer id);
-	
-	int validateResourceTypeIsUse(Integer id);
-	
-	 int validateStdAttributeCodeIsUse(Integer id);
-	 
-	 int getStdOperationByAttributeCodeId(Integer id);
-	 
-	 int validateIncisionAndOpsLevelAndOpsMarkIsUse(Map<String,Integer> map);
-	 
-	 int validateOpsMarkIsUseByOpeBeijingICD9(Map<String,Integer> map);
 	 
 }

@@ -57,7 +57,7 @@
   	</if>
   </select>
   
-  <select id="selectCountByPrimaryKey" resultType="java.lang.Integer" parameterType="java.lang.String">
+  <select id="getDiseaseCountByPrimaryKey" resultType="java.lang.Integer" parameterType="java.lang.String">
   	  	select count(code) from std_disease where code=#{code}
   </select>
   
@@ -122,7 +122,6 @@
   <update id="updateByPrimaryKey" parameterType="com.kurumi.pojo.StdDisease" >
     update std_disease
     <set >
-    	code = #{code,jdbcType=VARCHAR},
         name = #{name,jdbcType=VARCHAR},
         en_name = #{enName,jdbcType=VARCHAR},
         index_code = #{indexCode,jdbcType=VARCHAR},

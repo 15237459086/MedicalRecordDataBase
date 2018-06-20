@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.kurumi.mapper.StdOperationMapper" >
-  <resultMap id="stdOperation" type="com.kurumi.pojo.StdOperation" >
+  <resultMap id="BaseResultMap" type="com.kurumi.pojo.StdOperation" >
     <id column="code" property="code" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="en_name" property="enName" jdbcType="VARCHAR" />
+    <result column="index_code" property="indexCode" jdbcType="VARCHAR" />
     <result column="alias_name" property="aliasName" jdbcType="VARCHAR" />
     <result column="alias_name_index" property="aliasNameIndex" jdbcType="VARCHAR" />
-    <result column="index_code" property="indexCode" jdbcType="VARCHAR" />
-    <result column="attributes_id" property="attributesId" jdbcType="INTEGER" />
-    <result column="comment" property="comment" jdbcType="VARCHAR" />
-    <result column="std_ops_peration_mark_id" property="stdOpsPerationMarkId" jdbcType="INTEGER" />
-    <result column="std_incision_level_id" property="stdIncisionLevelId" jdbcType="INTEGER" />
-    <result column="std_ops_level_id" property="stdOpsLevelId" jdbcType="INTEGER" />
-    <result column="status" property="status" jdbcType="INTEGER" />
+    
+    <result column="operation_mark_code" property="operationMarkCode" jdbcType="VARCHAR" />
+    <result column="operation_mark_name" property="operationMarkName" jdbcType="VARCHAR" />
+    <result column="incision_level_code" property="incisionLevelCode" jdbcType="VARCHAR" />
+    <result column="incision_level_name" property="incisionLevelName" jdbcType="VARCHAR" />
+    <result column="operation_level_code" property="operationLevelCode" jdbcType="VARCHAR" />
+    <result column="operation_level_name" property="operationLevelName" jdbcType="VARCHAR" />
     <result column="std_region_code" property="stdRegionCode" jdbcType="VARCHAR" />
     <result column="std_province_code" property="stdProvinceCode" jdbcType="VARCHAR" />
     <result column="international_disease_version" property="interDiseaseVersion" jdbcType="VARCHAR" />
+    
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
   
   
-  <select id="getStdOperations" resultMap = "stdOperation" parameterType="com.kurumi.query.BasicDataQuery">
+  <select id="getOperationByOperationQuery" resultType ="map" parameterType="com.kurumi.query.OperationQuery">
   	select * from std_operation where 1=1
   	<if test="name!=null">
   	 	and name like CONCAT('%',#{name},'%')  
@@ -31,10 +35,13 @@
   	 <if test="indexCode != null">
   	 	and index_code like CONCAT('%',#{indexCode},'%') 
   	</if>
-  	 limit #{currentStartNum},#{pageSize}
+  	order by code
+  	<if test="currentStartNum != null and pageSize != null" >
+     	limit #{currentStartNum},#{pageSize}
+     </if>
   </select>
   
-   <select id="getCountByParams" parameterType="com.kurumi.query.BasicDataQuery" resultType="java.lang.Integer">
+  <select id="getOperationCountByOperationQuery" parameterType="com.kurumi.query.OperationQuery" resultType="java.lang.Integer">
   	select count(*) from std_operation  where 1=1
    	<if test="name!=null">
   	 	and name like CONCAT('%',#{name},'%')  
@@ -47,148 +54,78 @@
   	</if>
   </select>
   
-    <select id="selectByPrimaryKey" resultMap="stdOperation" parameterType="java.lang.String">
-  	  	select * from std_operation where code=#{code}
+  
+  <select id="getOperationCountByPrimaryKey" resultType="int" parameterType="java.lang.String">
+  	  	select count(code) from std_operation where code=#{code}
   </select>
   
   
-   <insert id="insert" parameterType="stdOperation" >
+  <insert id="insert" parameterType="com.kurumi.pojo.StdOperation" >
     insert into std_operation
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="code != null" >
         code,
-      </if>
-      <if test="name != null" >
         name,
-      </if>
-      <if test="enName != null" >
         en_name,
-      </if>
-      <if test="aliasName != null" >
-        alias_name,
-      </if>
-      <if test="aliasNameIndex != null" >
-        alias_name_index,
-      </if>
-      <if test="indexCode != null" >
         index_code,
-      </if>
-      <if test="attributesId != null" >
-        attributes_id,
-      </if>
-      <if test="comment != null" >
-        comment,
-      </if>
-      <if test="stdOpsPerationMarkId != null" >
-        std_ops_peration_mark_id,
-      </if>
-      <if test="stdIncisionLevelId != null" >
-        std_incision_level_id,
-      </if>
-      <if test="stdOpsLevelId != null" >
-        std_ops_level_id,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-      <if test="stdRegionCode != null" >
+        alias_name,
+        alias_name_index,
+        operation_mark_code,
+        operation_mark_name,
+        incision_level_code,
+        incision_level_name,
+        operation_level_code,
+        operation_level_name,
         std_region_code,
-      </if>
-      <if test="stdProvinceCode != null" >
         std_province_code,
-      </if>
-      <if test="interDiseaseVersion != null" >
         international_disease_version,
-      </if>
+        comment,
+        status,
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="code != null" >
         #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null" >
         #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="enName != null" >
         #{enName,jdbcType=VARCHAR},
-      </if>
-      <if test="aliasName != null" >
-        #{aliasName,jdbcType=VARCHAR},
-      </if>
-      <if test="aliasNameIndex != null" >
-        #{aliasNameIndex,jdbcType=VARCHAR},
-      </if>
-      <if test="indexCode != null" >
         #{indexCode,jdbcType=VARCHAR},
-      </if>
-      <if test="attributesId != null" >
-        #{attributesId,jdbcType=INTEGER},
-      </if>
-      <if test="comment != null" >
-        #{comment,jdbcType=VARCHAR},
-      </if>
-      <if test="stdOpsPerationMarkId != null" >
-        #{stdOpsPerationMarkId,jdbcType=INTEGER},
-      </if>
-      <if test="stdIncisionLevelId != null" >
-        #{stdIncisionLevelId,jdbcType=INTEGER},
-      </if>
-      <if test="stdOpsLevelId != null" >
-        #{stdOpsLevelId,jdbcType=INTEGER},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="stdRegionCode != null" >
+        #{aliasName,jdbcType=VARCHAR},
+        #{aliasNameIndex,jdbcType=VARCHAR},
+        #{operationMarkCode,jdbcType=VARCHAR},
+        #{operationMarkName,jdbcType=VARCHAR},
+        #{incisionLevelCode,jdbcType=VARCHAR},
+        #{incisionLevelName,jdbcType=VARCHAR},
+        #{operationLevelCode,jdbcType=VARCHAR},
+        #{operationLevelName,jdbcType=VARCHAR},
         #{stdRegionCode,jdbcType=VARCHAR},
-      </if>
-      <if test="stdProvinceCode != null" >
         #{stdProvinceCode,jdbcType=VARCHAR},
-      </if>
-      <if test="interDiseaseVersion != null" >
         #{interDiseaseVersion,jdbcType=VARCHAR},
-      </if>
+      	#{comment,jdbcType=VARCHAR},
+      	#{status,jdbcType=INTEGER},
     </trim>
   </insert>
   
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+  	  	select * from std_operation where code=#{code}
+  </select>
    <update id="updateByPrimaryKey" parameterType="stdOperation" >
     update std_operation
     <set >
-      <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="enName != null" >
         en_name = #{enName,jdbcType=VARCHAR},
-      </if>
-      <if test="aliasName != null" >
-        alias_name = #{aliasName,jdbcType=VARCHAR},
-      </if>
-      <if test="aliasNameIndex != null" >
-        alias_name_index = #{aliasNameIndex,jdbcType=VARCHAR},
-      </if>
-      <if test="indexCode != null" >
         index_code = #{indexCode,jdbcType=VARCHAR},
-      </if>
-      <if test="attributesId != null" >
-        attributes_id = #{attributesId,jdbcType=INTEGER},
-      </if>
-      <if test="comment != null" >
-        comment = #{comment,jdbcType=VARCHAR},
-      </if>
-       		std_ops_peration_mark_id = #{stdOpsPerationMarkId,jdbcType=INTEGER},
-       		std_incision_level_id = #{stdIncisionLevelId,jdbcType=INTEGER},
-       		std_ops_level_id = #{stdOpsLevelId,jdbcType=INTEGER},
-      <if test="status != null" >
-        status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="stdRegionCode != null" >
+        alias_name = #{aliasName,jdbcType=VARCHAR},
+        alias_name_index = #{aliasNameIndex,jdbcType=VARCHAR},
+        
+     	operation_mark_code = #{operationMarkCode,jdbcType=VARCHAR},
+     	operation_mark_name = #{operationMarkName,jdbcType=VARCHAR},
+     	incision_level_code = #{incisionLevelCode,jdbcType=VARCHAR},
+     	incision_level_name = #{incisionLevelName,jdbcType=VARCHAR},
+     	operation_level_code = #{operationLevelCode,jdbcType=VARCHAR},
+        operation_level_name = #{operationLevelName,jdbcType=VARCHAR},
         std_region_code = #{stdRegionCode,jdbcType=VARCHAR},
-      </if>
-      <if test="stdProvinceCode != null" >
         std_province_code = #{stdProvinceCode,jdbcType=VARCHAR},
-      </if>
-      <if test="interDiseaseVersion != null" >
         international_disease_version = #{interDiseaseVersion,jdbcType=VARCHAR},
-      </if>
+        comment = #{comment,jdbcType=VARCHAR},
+        status = #{status,jdbcType=INTEGER},
     </set>
     where code = #{code,jdbcType=VARCHAR}
   </update>
@@ -196,4 +133,6 @@
    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
       delete from std_operation where code=#{code}
   </delete>
+  
+  
   </mapper>

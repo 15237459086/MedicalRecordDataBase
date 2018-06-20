@@ -16,7 +16,7 @@ request.setAttribute("basePath", basePath);
 	  <div class="list_menu2">
 	   <h3>ICD数据</h3>
 	   <h4 class="li_t"><a onclick="loadContent('${basePath }icd/icd_disease_page')">ICD_10</a></h4>
-	   <h4 class="li_t"><a onclick="loadContent('${basePath }basic/basic_cure_page?tableName=RhBloodType')">ICD_9_CM</a></h4>
+	   <h4 class="li_t"><a onclick="loadContent('${basePath }icd/icd_operation_page')">ICD_9_CM</a></h4>
 	  </div>
 	 </div>
 	<div id="list_NR">

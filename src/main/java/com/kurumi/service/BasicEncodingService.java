@@ -19,24 +19,4 @@ public interface BasicEncodingService {
 	BasicEncoding getBasicEncodingById(Map<String,Object> map);
 	int updateBasicEncodingById(BasicEncoding basic);
 	int deleteBasicEncodingById (Map<String,Object> map);
-	
-	boolean validateIdTypeIsUse(Integer id);
-	
-	
-	
-	boolean validateSexIsUse(Integer id);
-	
-	boolean validateTreatmentIsUse(Map<String,Object> map);
-	boolean validateHospitalTypeIsUse(Map<String,Object> map);
-	
-	boolean validateHospitalIsUse(Integer id);
-	
-	boolean validateResourceTypeIsUse(Integer id);
-	
-	List<Map<String,Object>> getBasicDataList(String tableName);
-	
-	boolean validateStdAttributeCodeIsUse(Integer id);
-	
-	boolean validateIncisionAndOpsLevelAndOpsMarkIsUse(Map<String,Integer> map);
-	
 }

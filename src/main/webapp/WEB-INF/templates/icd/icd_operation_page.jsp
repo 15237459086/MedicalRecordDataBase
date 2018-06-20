@@ -1,14 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	
+	String baseInfoJson= (String)request.getAttribute("baseInfoJson");
+ %>
 <%@ include file="../layout/base_resource.jsp" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" href="${basePath}assets/multiselect-master/css/style.css" />
 <script type="text/javascript" src="${basePath}assets/js/iframe.js"></script>
-<script type="text/javascript" src="${basePath}assets/js/icd/icd_disease_page.js"></script>
+<script type="text/javascript" src="${basePath}assets/js/icd/icd_operation_page.js"></script>
 <script type="text/javascript" src="${basePath}assets/multiselect-master/js/multiselect.js"></script>
 <div class="loc">
-	<h3>ICD_10</h3>
-	<ul class="loc_loc"><li> 当前位置：ICD数据> ICD_10</li>
+	<h3>ICD_9_CM</h3>
+	<ul class="loc_loc"><li> 当前位置：ICD数据> ICD_9_CM</li>
 	</ul>
 	
 </div>
@@ -27,7 +31,7 @@
     <li class="Label_1">检索码：&nbsp;</li>
     <li class="Label_2"><input class="input_box" type="text" name="indexCode" /></li>
     <li class="Label_5">
-     <a onclick="layerCreatDisease()">新增</a>
+     <a onclick="layerCreatOperation()">新增</a>
      <a id="queryBtn" onclick="queryBtnClick()">查询</a>
     </li>
     </ul>
@@ -50,7 +54,7 @@
 	      <td class="tdLabel_5"><span class=index_code></span></td>
 	      <td class="tdLabel_5">
 	      	<a onclick="layerShow(this)" title="预览">预览&nbsp;</a>
-	      	<a onclick="layerUpdateDisease(this)" title="编辑">编辑&nbsp;</a>
+	      	<a onclick="layerUpdateOperation(this)" title="编辑">编辑&nbsp;</a>
 	      </td>
 	     </tr>
       	
@@ -89,32 +93,24 @@
 		    <li class="Label_2" style="width: 30%">
 		    	<input class="input_box" type="text" name="aliasNameIndex"/>
 		    </li>
-		    <li class="Label_1" style="width: 20%">适合男性编码：&nbsp;</li>
+		    <li class="Label_1" style="width: 20%">手术操作标识：&nbsp;</li>
 		    <li class="Label_2" style="width: 30%">
-		    	<input type="checkbox" name="fitManCodeFlag" checked="checked" value="1"/>
+		    	<select class="input_box" data-type="code_name" name="operationMarkCode"></select>
+		    	<input type="hidden" name="operationMarkName">
 		    </li>
-		    <li class="Label_1" style="width: 20%">适合女性编码：&nbsp;</li>
+		    <li class="Label_1" style="width: 20%">切口等级：&nbsp;</li>
 		    <li class="Label_2" style="width: 30%">
-		    	<input type="checkbox" name="fitWomanCodeFlag" checked="checked" value="1"/>
+		    	<select class="input_box" data-type="code_name" name="incisionLevelCode"></select>
+		    	<input type="hidden" name="incisionLevelName">
 		    </li>
-		    <li class="Label_1" style="width: 20%">非死亡标识：&nbsp;</li>
+		    <li class="Label_1" style="width: 20%">手术等级：&nbsp;</li>
 		    <li class="Label_2" style="width: 30%">
-		    	<input type="checkbox" name="unDeathFlag" value="1"/>
+		    	<select class="input_box" data-type="code_name" name="operationLevelCode"></select>
+		    	<input type="hidden" name="operationLevelName">
 		    </li>
-		    <li class="Label_1" style="width: 20%">非主要诊断标识：&nbsp;</li>
-		    <li class="Label_2" style="width: 30%">
-		    	<input type="checkbox" name="unPrimaryFlag" value="1"/>
-		    </li>
-		    <li class="Label_1" style="width: 20%">慎用诊断标识：&nbsp;</li>
-		    <li class="Label_2" style="width: 30%">
-		    	<input type="checkbox" name="attentionFlag" value="1"/>
-		    </li>
-		    <li class="Label_1" style="width: 20%">慎用诊断原因：&nbsp;</li>
-		    <li class="Label_2" style="width: 30%">
-		    	<input class="input_box" type="text" name="attentionComment"/>
-		    </li>
+		    
 		    <li class="Label_1" style="width: 20%">备注：&nbsp;</li>
-		    <li class="Label_2" style="width: 80%">
+		    <li class="Label_2" style="width: 30%">
 		    	<input class="input_box" type="text" name="comment"/>
 		    </li>
 		    <li class="Label_5">
@@ -126,12 +122,11 @@
 	</form>
 </div>
 
-<div hidden="hidden" id="show_disease_div">
+<div hidden="hidden" id="show_operation_div">
 	<form>
 		<div class="search_table" style="width: 720px;">
 		 <ul>
-   
-		    <li class="Label_1" style="width: 20%">编号：&nbsp;</li>
+   			 <li class="Label_1" style="width: 20%">编号：&nbsp;</li>
 		    <li class="Label_2" style="width: 30%"><input class="input_box" type="text" name="code" readonly="readonly"/></li>
 		    <li class="Label_1" style="width: 20%">名称：&nbsp;</li>
 		    <li class="Label_2" style="width: 30%"><input class="input_box" type="text" name="name" readonly="readonly"/></li>
@@ -149,48 +144,35 @@
 		    </li>
 		    <li class="Label_1" style="width: 20%">简称索引：&nbsp;</li>
 		    <li class="Label_2" style="width: 30%">
-		    	<input class="input_box" type="text" name="aliasNameIndex" readonly="readonly"/>
+		    	<input class="input_box" type="text" name="aliasNameIndex"/>
 		    </li>
-		    <li class="Label_1" style="width: 20%">适合男性编码：&nbsp;</li>
+		    <li class="Label_1" style="width: 20%">手术操作标识：&nbsp;</li>
 		    <li class="Label_2" style="width: 30%">
-		    	<input type="checkbox" name="fitManCodeFlag" checked="checked" value="1" disabled="disabled"/>
+		    	<input class="input_box" type="text" name="operationMarkName" readonly="readonly"/>
 		    </li>
-		    <li class="Label_1" style="width: 20%">适合女性编码：&nbsp;</li>
+		    <li class="Label_1" style="width: 20%">切口等级：&nbsp;</li>
 		    <li class="Label_2" style="width: 30%">
-		    	<input type="checkbox" name="fitWomanCodeFlag" checked="checked" value="1" disabled="disabled"/>
+		    	<input class="input_box" type="text" name="incisionLevelName" readonly="readonly"/>
 		    </li>
-		    <li class="Label_1" style="width: 20%">非死亡标识：&nbsp;</li>
+		    <li class="Label_1" style="width: 20%">手术等级：&nbsp;</li>
 		    <li class="Label_2" style="width: 30%">
-		    	<input type="checkbox" name="unDeathFlag" value="1" disabled="disabled"/>
+		    	<input class="input_box" type="text" name="operationLevelName" readonly="readonly"/>
 		    </li>
-		    <li class="Label_1" style="width: 20%">非主要诊断标识：&nbsp;</li>
-		    <li class="Label_2" style="width: 30%">
-		    	<input type="checkbox" name="unPrimaryFlag" value="1" disabled="disabled"/>
-		    </li>
-		    <li class="Label_1" style="width: 20%">慎用诊断标识：&nbsp;</li>
-		    <li class="Label_2" style="width: 30%">
-		    	<input type="checkbox" name="attentionFlag" value="1" disabled="disabled"/>
-		    </li>
-		    <li class="Label_1" style="width: 20%">慎用诊断原因：&nbsp;</li>
-		    <li class="Label_2" style="width: 30%">
-		    	<input class="input_box" type="text" name="attentionComment" readonly="readonly"/>
-		    </li>
+		    
 		    <li class="Label_1" style="width: 20%">备注：&nbsp;</li>
-		    <li class="Label_2" style="width: 80%">
-		    	<input class="input_box" type="text" name="comment" readonly="readonly"/>
+		    <li class="Label_2" style="width: 30%">
+		    	<input class="input_box" type="text" name="comment"/>
 		    </li>
 	    </ul>
 	    </div>
 	</form>
 </div>
 
-
-<div hidden="hidden" id="update_disease_div">
+<div hidden="hidden" id="update_operation_div">
 	<form>
 		<div class="search_table" style="width: 720px;">
 		 <ul>
-   
-		    <li class="Label_1" style="width: 20%">编号：&nbsp;</li>
+   			 <li class="Label_1" style="width: 20%">编号：&nbsp;</li>
 		    <li class="Label_2" style="width: 30%"><input class="input_box" type="text" name="code" readonly="readonly"/></li>
 		    <li class="Label_1" style="width: 20%">名称：&nbsp;</li>
 		    <li class="Label_2" style="width: 30%"><input class="input_box" type="text" name="name" /></li>
@@ -210,32 +192,24 @@
 		    <li class="Label_2" style="width: 30%">
 		    	<input class="input_box" type="text" name="aliasNameIndex"/>
 		    </li>
-		    <li class="Label_1" style="width: 20%">适合男性编码：&nbsp;</li>
+		    <li class="Label_1" style="width: 20%">手术操作标识：&nbsp;</li>
 		    <li class="Label_2" style="width: 30%">
-		    	<input type="checkbox" name="fitManCodeFlag" value="1"/>
+		    	<select class="input_box" name="operationMarkCode"></select>
+		    	<input type="hidden" name="operationMarkName">
 		    </li>
-		    <li class="Label_1" style="width: 20%">适合女性编码：&nbsp;</li>
+		    <li class="Label_1" style="width: 20%">切口等级：&nbsp;</li>
 		    <li class="Label_2" style="width: 30%">
-		    	<input type="checkbox" name="fitWomanCodeFlag" value="1"/>
+		    	<select class="input_box" name="incisionLevelCode"></select>
+		    	<input type="hidden" name="incisionLevelName">
 		    </li>
-		    <li class="Label_1" style="width: 20%">非死亡标识：&nbsp;</li>
+		    <li class="Label_1" style="width: 20%">手术等级：&nbsp;</li>
 		    <li class="Label_2" style="width: 30%">
-		    	<input type="checkbox" name="unDeathFlag" value="1"/>
+		    	<select class="input_box" name="operationLevelCode"></select>
+		    	<input type="hidden" name="operationLevelName">
 		    </li>
-		    <li class="Label_1" style="width: 20%">非主要诊断标识：&nbsp;</li>
-		    <li class="Label_2" style="width: 30%">
-		    	<input type="checkbox" name="unPrimaryFlag" value="1"/>
-		    </li>
-		    <li class="Label_1" style="width: 20%">慎用诊断标识：&nbsp;</li>
-		    <li class="Label_2" style="width: 30%">
-		    	<input type="checkbox" name="attentionFlag" value="1"/>
-		    </li>
-		    <li class="Label_1" style="width: 20%">慎用诊断原因：&nbsp;</li>
-		    <li class="Label_2" style="width: 30%">
-		    	<input class="input_box" type="text" name="attentionComment"/>
-		    </li>
+		    
 		    <li class="Label_1" style="width: 20%">备注：&nbsp;</li>
-		    <li class="Label_2" style="width: 80%">
+		    <li class="Label_2" style="width: 30%">
 		    	<input class="input_box" type="text" name="comment"/>
 		    </li>
 		    <li class="Label_5">
@@ -248,3 +222,11 @@
 </div>
 
 
+
+<script type="text/javascript">
+	$(function(){
+		var baseInfoJson= <%=baseInfoJson%>;
+		console.log(baseInfoJson);
+		init(baseInfoJson);
+	});
+</script>

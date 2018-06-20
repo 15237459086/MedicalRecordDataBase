@@ -21,8 +21,6 @@ public class HolidayController {
 	
 	@Autowired
 	private HolidayService holidayService;
-	
-	
 
 	@RequestMapping("/holiday_index")
 	public String holidayIndex(Model model){
@@ -34,12 +32,6 @@ public class HolidayController {
 		return "holiday/holiday_page";
 	}
 	
-	/*@RequestMapping("/getHolidays")
-	public String getHolidays(Model model){
-		List<HospitalHoliday> holidays = holidayService.getHolidays();
-		model.addAttribute("holidays", JsonUtils.objectToJson(holidays));
-		return "holiday/setholiday";
-	}*/
 	
 	@ResponseBody
 	@GetMapping("/query_holiday")

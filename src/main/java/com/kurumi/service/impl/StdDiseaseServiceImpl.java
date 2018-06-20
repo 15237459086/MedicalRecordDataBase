@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kurumi.datasource.TargetDataSource;
-import com.kurumi.mapper.BasicEncodingMapper;
 import com.kurumi.mapper.StdDiseaseMapper;
 import com.kurumi.pojo.StdDisease;
 import com.kurumi.query.DiseaseQuery;
@@ -18,9 +17,6 @@ public class StdDiseaseServiceImpl implements StdDiseaseService{
 
 	@Autowired
 	private StdDiseaseMapper stdDiseaseMapper;
-	@Autowired
-	private BasicEncodingMapper basicEncodingMapper;
-
 	
 	@Override
 	@TargetDataSource(name="ds1")
@@ -38,7 +34,7 @@ public class StdDiseaseServiceImpl implements StdDiseaseService{
 	@Transactional
 	@TargetDataSource(name="ds1")
 	public int insert(StdDisease record) {
-		int result = stdDiseaseMapper.selectCountByPrimaryKey(record.getCode());
+		int result = stdDiseaseMapper.getDiseaseCountByPrimaryKey(record.getCode());
 		if(result >=1){
 			return 2;
 		}
@@ -79,27 +75,25 @@ public class StdDiseaseServiceImpl implements StdDiseaseService{
 	@Transactional
 	@TargetDataSource(name="ds1")
 	public int updateByPrimaryKey(StdDisease record) {
-		return stdDiseaseMapper.updateByPrimaryKey(record);
-	}
-
-	
-	@Override
-	@TargetDataSource(name="ds1")
-	public List<Map<String, Object>> getStdAttributeCodes() {
-		return basicEncodingMapper.getBasicDataList("std_attributes_code");
-	}
-
-	@Override
-	@TargetDataSource(name="ds1")
-	public boolean validateCodeIsUnique(String code) {
-		boolean result = false;
-		int count = stdDiseaseMapper.validateCodeIsUnique(code);
-		
-		if(count==0){
-			result = true;
+		StdDisease stdDisease = stdDiseaseMapper.selectByPrimaryKey(record.getCode());
+		if(stdDisease == null){
+			return -1;
 		}
+		stdDisease.setName(record.getName());
+		stdDisease.setEnName(record.getEnName());
+		stdDisease.setIndexCode(record.getIndexCode());
+		stdDisease.setAliasName(record.getAliasName());
+		stdDisease.setAliasNameIndex(record.getAliasNameIndex());
+		stdDisease.setFitManCodeFlag(record.getFitManCodeFlag());
+		stdDisease.setFitWomanCodeFlag(record.getFitWomanCodeFlag());
+		stdDisease.setUnDeathFlag(record.getUnDeathFlag());
 		
-		return result;
+		stdDisease.setUnPrimaryFlag(record.getUnPrimaryFlag());
+		stdDisease.setAttentionFlag(record.getAttentionFlag());
+		stdDisease.setAttentionComment(record.getAttentionComment());
+		
+		stdDisease.setComment(record.getComment());
+		return stdDiseaseMapper.updateByPrimaryKey(stdDisease);
 	}
 
 }

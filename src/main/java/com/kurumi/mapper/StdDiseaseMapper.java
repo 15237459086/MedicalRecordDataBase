@@ -6,7 +6,6 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.kurumi.pojo.StdDisease;
-import com.kurumi.query.BasicDataQuery;
 import com.kurumi.query.DiseaseQuery;
 
 public interface StdDiseaseMapper {
@@ -22,9 +21,7 @@ public interface StdDiseaseMapper {
     
     int getDiseasesCountByDiseaseQuery(DiseaseQuery params);
     
-    int selectCountByPrimaryKey(@Param("code")String code);
-    
-    int validateCodeIsUnique(String code);
+    int getDiseaseCountByPrimaryKey(@Param("code")String code);
     
    //模糊查询查询国际疾病编号
     List<Map<String,Object>> queryDiseaseByLikeCode(String diseaseCode);

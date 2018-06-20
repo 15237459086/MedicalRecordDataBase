@@ -18,8 +18,5 @@ public interface MrPageTypeService {
 
     List<Map<String,Object>> getMrPageTypes(BasicDataQuery params);
     
-    int getCountByParams(BasicDataQuery params);
-    
-    boolean validateIsUse(Integer id);
 
 }

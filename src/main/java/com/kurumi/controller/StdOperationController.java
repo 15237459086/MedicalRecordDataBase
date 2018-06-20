@@ -1,5 +1,6 @@
 package com.kurumi.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,10 @@ public class StdOperationController {
 
 	@RequestMapping("/getStdOperations")
 	public String getStdOperations(Model model,BasicDataQuery params){
-		List<StdOperation> basics = stdOperationService.getStdOperations(params);
-		int count = stdOperationService.getCountByParams(params);
+		/*List<StdOperation> basics = stdOperationService.getStdOperations(params);*/
+		List<StdOperation> basics = new ArrayList<StdOperation>();
+		/*int count = stdOperationService.getCountByParams(params);*/
+		int count = 0;
 		params.setTotalCounts(count);
 		model.addAttribute("count",count);
 		model.addAttribute("basics", basics);
@@ -31,16 +34,12 @@ public class StdOperationController {
 		return "basic/stdoperations";
 	}
 	
-	@RequestMapping("/addStdOperationPage")
-	public String addStdOperationPage(Model model){
-		model.addAttribute("basicMap",stdOperationService.getBasicData());
-		return "basic/addstdoperation";
-	}
+	
 	
 	@RequestMapping("/showStdOperation")
 	public String showStdOperation(Model model,String code,Integer currentPage,Integer pageSize,String name,String queryCode,String indexCode){
 		StdOperation basic = stdOperationService.selectByPrimaryKey(code);
-		model.addAttribute("basicMap",stdOperationService.getBasicData());
+		
 		model.addAttribute("basic", basic);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("pageSize", pageSize);

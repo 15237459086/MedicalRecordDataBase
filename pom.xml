@@ -40,7 +40,7 @@ spring boot 父节点依赖,引入这个之后相关的引入就不需要添加v
 		<dependency>
 		    <groupId>junit</groupId>
 		    <artifactId>junit</artifactId>
-		    <version>4.11</version>
+		    <version>4.11</version><!--$NO-MVN-MAN-VER$-->
 		    <scope>test</scope>
 	   </dependency>
 		
@@ -52,7 +52,7 @@ spring boot 父节点依赖,引入这个之后相关的引入就不需要添加v
 		<dependency> 
 		    <groupId>org.aspectj</groupId> 
 		    <artifactId>aspectjweaver</artifactId> 
-		    <version>1.6.12</version> 
+		    <version>1.6.12</version><!--$NO-MVN-MAN-VER$--> 
 		</dependency> 
 		
 		<dependency>
@@ -89,7 +89,7 @@ spring boot 父节点依赖,引入这个之后相关的引入就不需要添加v
 		<dependency>
 				<groupId>mysql</groupId>
 				<artifactId>mysql-connector-java</artifactId>
-				<version>5.1.32</version>
+				<version>5.1.32</version><!--$NO-MVN-MAN-VER$-->
 		</dependency>	
 		
 		<!-- mybatis -->

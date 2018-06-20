@@ -57,8 +57,8 @@ public class PrintController {
 	public RespondResult updateMrPrinterRange(@RequestParam("printerTypeId")Integer printerTypeId,@RequestParam("pageTypeIds")List<Integer> pageTypeIds){
 		RespondResult respondResult = null;
 		try {
-			int result = printService.updateMrPrinterRanges(printerTypeId, pageTypeIds);
-			respondResult = new RespondResult(true, RespondResult.successCode, "查询成功", "");
+			printService.updateMrPrinterRanges(printerTypeId, pageTypeIds);
+			respondResult = new RespondResult(true, RespondResult.successCode, "操作成功", "");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

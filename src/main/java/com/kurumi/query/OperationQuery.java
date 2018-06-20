@@ -2,7 +2,7 @@ package com.kurumi.query;
 
 import com.kurumi.util.StringUtil;
 
-public class DiseaseQuery extends PageQuery {
+public class OperationQuery extends PageQuery {
 
 	private String code;
 

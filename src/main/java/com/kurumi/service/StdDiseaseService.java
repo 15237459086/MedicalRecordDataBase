@@ -23,14 +23,5 @@ public interface StdDiseaseService {
 	int deleteByPrimaryKey(String code);
 
     
-
-   
-
-   
     
-    List<Map<String,Object>> getStdAttributeCodes();
-    
-   
-    
-    boolean validateCodeIsUnique(String code);
 }

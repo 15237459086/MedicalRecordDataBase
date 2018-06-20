@@ -19,9 +19,6 @@ public interface MrPageTypeMapper {
     
     List<Map<String,Object>> getPageTypeListByHospitalId(Integer hospitalId);
     
-    int getCountByParams(BasicDataQuery params);
-    
-    int validateIsUse(Integer id);
     
     int getPageRangeByPageTypeId(Integer id);
 
