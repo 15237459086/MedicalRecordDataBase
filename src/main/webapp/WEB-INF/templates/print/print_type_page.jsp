@@ -6,6 +6,7 @@
 <script type="text/javascript" src="${basePath}assets/js/iframe.js"></script>
 <script type="text/javascript" src="${basePath}assets/js/print/print_type_page.js"></script>
 <script type="text/javascript" src="${basePath}assets/multiselect-master/js/multiselect.js"></script>
+
 <div class="loc">
 	<h3>打印内容管理</h3>
 	<ul class="loc_loc"><li> 当前位置：打印设置> 打印内容管理</li>
@@ -34,8 +35,10 @@
     </ul>
     <ul>
     <c:forEach var="pageType" items="${pageTypes}">
-    	<li class="Label_2" style="width: 20%">
-	    	<input type="checkbox" name="pageTypeIds" value="${pageType.id }">${pageType.name }
+    	<li class="Label_2" style="width: 20%;overflow-y: hidden;" title="${pageType.name }">
+	    	<input type="checkbox" name="pageTypeIds" value="${pageType.id }">
+	    	${pageType.name }
+	    	
 	    </li>
     </c:forEach>
     </ul>

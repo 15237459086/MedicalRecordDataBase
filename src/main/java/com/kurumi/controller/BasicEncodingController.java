@@ -95,6 +95,27 @@ public class BasicEncodingController {
 		return respondResult;
 	}
 	
+	@RequestMapping("/ajax_query_basic_encoding")
+	@ResponseBody
+	public RespondResult AjaxQueryBasicEncoding(Model model,BasicEncodingQuery params){
+		RespondResult respondResult = null;
+		try {
+			List<Map<String, Object>> queryDatas = new ArrayList<Map<String, Object>>();
+			params.setCurrentPage(null);
+			params.setPageSize(null);
+			queryDatas = basicEncodingService.getBasicEncoding(params);
+			params.setTotalCounts(queryDatas.size());
+			params.setQueryDatas(queryDatas);
+			respondResult = new RespondResult(true, RespondResult.successCode, "查询成功", params);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			respondResult = new RespondResult(false, RespondResult.errorCode, e.getMessage(),e.getMessage());
+		}
+		
+		return respondResult;
+	}
+	
 	
 	@ResponseBody
 	@PostMapping("/create_basic_data")

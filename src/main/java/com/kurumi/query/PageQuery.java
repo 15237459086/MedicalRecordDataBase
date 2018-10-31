@@ -13,7 +13,10 @@ public class PageQuery {
 	private Integer currentStartNum=0; //当前
 
 	public Integer getCurrentStartNum() {
-		currentStartNum = (currentPage.intValue()-1)*pageSize.intValue();
+		if(currentPage != null && pageSize != null){
+			currentStartNum = (currentPage.intValue()-1)*pageSize.intValue();
+		}
+		
 		return currentStartNum;
 	}
 
@@ -26,7 +29,9 @@ public class PageQuery {
 	}
 
 	public Integer getTotalPages() {
-		totalPages = totalCounts.intValue()%pageSize.intValue()==0?totalCounts.intValue()/pageSize.intValue():(totalCounts.intValue()/pageSize.intValue())+1;
+		if(totalCounts != null && pageSize != null){
+			totalPages = totalCounts.intValue()%pageSize.intValue()==0?totalCounts.intValue()/pageSize.intValue():(totalCounts.intValue()/pageSize.intValue())+1;
+		}
 		return  totalPages;
 	}
 

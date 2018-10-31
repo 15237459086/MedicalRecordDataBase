@@ -3,6 +3,11 @@ package com.kurumi.datasource;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 动态数据源上下文.
+ *
+ * @version v.0.1
+ */
 public class DynamicDataSourceContextHolder {
 	
 	 private static final ThreadLocal<String> contextHolder = new ThreadLocal<String>();

@@ -82,13 +82,7 @@ spring boot 父节点依赖,引入这个之后相关的引入就不需要添加v
 			<version>1.2.15</version>
 		</dependency>
 		
-		<!-- spring boot devtools 依赖包. -->
-		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-           <scope>true</scope>
-		</dependency>
+	
 		
 		<!-- mysql 数据库驱动. -->
 		<dependency>
@@ -168,6 +162,13 @@ spring boot 父节点依赖,引入这个之后相关的引入就不需要添加v
 	            <version>3.0.7</version>
 	        </dependency>
 	        <!-- tiles end -->
+	    <!-- spring boot devtools 依赖包. -->
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+           <scope>true</scope>
+	</dependency>
   </dependencies>
 
 	<!-- 构建节点. -->

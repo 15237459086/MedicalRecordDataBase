@@ -13,7 +13,7 @@
   </resultMap>
 
    <select id="getBasicEncoding" resultType="map" parameterType="com.kurumi.query.BasicEncodingQuery">
-  	select * from ${tableName} where 1=1
+  	select * from ${tableName} where 1=1 and status = 1
   	<if test="code!=null">
   	 	and code=#{code}
   	</if>
@@ -23,7 +23,7 @@
   	<if test="indexCode!=null">
   	 	and index_code=#{indexCode}
   	</if>
-  	 order by id desc
+  	 order by sort_code
   	 <if test="currentStartNum != null and pageSize != null" >
      	limit #{currentStartNum},#{pageSize}
      </if>

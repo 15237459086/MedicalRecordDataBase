@@ -45,5 +45,6 @@ request.setAttribute("basePath", basePath);
   <li><a href="${basePath }basic/basic_icd_index">ICD数据</a></li>
   <li><a href="${basePath }basic/basic_operate_index">手术数据</a></li>
   <li><a href="${basePath }print/print_index">打印设置</a></li>
+  <li><a href="${basePath }hospital_message/index">医院信息</a></li>
  </ul>
 </div>

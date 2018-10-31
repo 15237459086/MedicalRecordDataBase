@@ -6,13 +6,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Import;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.kurumi.datasource.DynamicDataSourceRegister;
 
 
-
-@EnableTransactionManagement		
+/*
+@EnableTransactionManagement*/		
 @SpringBootApplication
 @Import({DynamicDataSourceRegister.class}) 
 @MapperScan(basePackages="com.kurumi.mapper")
